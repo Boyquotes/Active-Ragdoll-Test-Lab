@@ -1,0 +1,423 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://Spine1.gd" type="Script" id=1]
+[ext_resource path="res://Spine6.gd" type="Script" id=2]
+[ext_resource path="res://Leg.gd" type="Script" id=3]
+[ext_resource path="res://Spine2.gd" type="Script" id=5]
+[ext_resource path="res://Spine5.gd" type="Script" id=6]
+[ext_resource path="res://Spine3.gd" type="Script" id=7]
+[ext_resource path="res://Spine4.gd" type="Script" id=8]
+[ext_resource path="res://Ostritch_Panel_Legs.tres" type="StyleBox" id=9]
+[ext_resource path="res://Ostritch_Panel_Neck.tres" type="StyleBox" id=10]
+[ext_resource path="res://Body.gd" type="Script" id=11]
+
+[sub_resource type="PhysicsMaterial" id=12]
+friction = 0.0
+
+[sub_resource type="CapsuleShape2D" id=11]
+radius = 26.0
+height = 22.0
+
+[sub_resource type="PhysicsMaterial" id=14]
+friction = 0.0
+
+[sub_resource type="CapsuleShape2D" id=8]
+radius = 8.0
+height = 2.0
+
+[sub_resource type="PhysicsMaterial" id=9]
+friction = 0.0
+
+[sub_resource type="CapsuleShape2D" id=6]
+radius = 7.0
+height = 50.0
+
+[sub_resource type="PhysicsMaterial" id=7]
+friction = 11.0
+rough = true
+bounce = 10.0
+absorbent = true
+
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 63, 77.5 )
+
+[node name="Body" type="RigidBody2D"]
+position = Vector2( 14, 28 )
+collision_layer = 14
+collision_mask = 13
+physics_material_override = SubResource( 12 )
+can_sleep = false
+script = ExtResource( 11 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( 0, 1 )
+enabled = true
+cast_to = Vector2( 0, 130 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( -14, -93 )
+zoom = Vector2( 2, 2 )
+process_mode = 0
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource( 11 )
+
+[node name="Spine6" type="RigidBody2D" parent="."]
+position = Vector2( 32, -14 )
+collision_layer = 6
+collision_mask = 5
+mass = 0.102041
+physics_material_override = SubResource( 14 )
+script = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="Spine6"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -8.0
+margin_top = -9.0
+margin_right = 8.0
+margin_bottom = 9.0
+
+[node name="Panel" type="Panel" parent="Spine6"]
+margin_left = -8.0
+margin_top = -9.0
+margin_right = 8.0
+margin_bottom = 15.0
+custom_styles/panel = ExtResource( 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spine6"]
+shape = SubResource( 8 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Spine6"]
+position = Vector2( 0, 7 )
+node_a = NodePath("../..")
+node_b = NodePath("..")
+
+[node name="Spine5" type="RigidBody2D" parent="Spine6"]
+position = Vector2( 0, -14 )
+collision_layer = 6
+collision_mask = 5
+mass = 0.102041
+physics_material_override = SubResource( 9 )
+script = ExtResource( 6 )
+
+[node name="ColorRect" type="ColorRect" parent="Spine6/Spine5"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -8.0
+margin_top = -9.0
+margin_right = 8.0
+margin_bottom = 9.0
+
+[node name="Panel" type="Panel" parent="Spine6/Spine5"]
+margin_left = -8.0
+margin_top = -9.0
+margin_right = 8.0
+margin_bottom = 9.0
+custom_styles/panel = ExtResource( 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spine6/Spine5"]
+shape = SubResource( 8 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Spine6/Spine5"]
+position = Vector2( 0, 7 )
+node_a = NodePath("..")
+node_b = NodePath("../..")
+
+[node name="Spine4" type="RigidBody2D" parent="Spine6/Spine5"]
+position = Vector2( 0, -14 )
+collision_layer = 6
+collision_mask = 5
+mass = 0.102041
+physics_material_override = SubResource( 9 )
+script = ExtResource( 8 )
+
+[node name="ColorRect" type="ColorRect" parent="Spine6/Spine5/Spine4"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -8.0
+margin_top = -9.0
+margin_right = 8.0
+margin_bottom = 9.0
+
+[node name="Panel" type="Panel" parent="Spine6/Spine5/Spine4"]
+margin_left = -8.0
+margin_top = -9.0
+margin_right = 8.0
+margin_bottom = 9.0
+custom_styles/panel = ExtResource( 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spine6/Spine5/Spine4"]
+shape = SubResource( 8 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Spine6/Spine5/Spine4"]
+position = Vector2( 0, 7 )
+node_a = NodePath("..")
+node_b = NodePath("../..")
+
+[node name="Spine3" type="RigidBody2D" parent="Spine6/Spine5/Spine4"]
+position = Vector2( 0, -14 )
+collision_layer = 6
+collision_mask = 5
+mass = 0.102041
+physics_material_override = SubResource( 9 )
+script = ExtResource( 7 )
+
+[node name="ColorRect" type="ColorRect" parent="Spine6/Spine5/Spine4/Spine3"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -8.0
+margin_top = -9.0
+margin_right = 8.0
+margin_bottom = 9.0
+
+[node name="Panel" type="Panel" parent="Spine6/Spine5/Spine4/Spine3"]
+margin_left = -8.0
+margin_top = -9.0
+margin_right = 8.0
+margin_bottom = 9.0
+custom_styles/panel = ExtResource( 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spine6/Spine5/Spine4/Spine3"]
+shape = SubResource( 8 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Spine6/Spine5/Spine4/Spine3"]
+position = Vector2( 0, 7 )
+node_a = NodePath("..")
+node_b = NodePath("../..")
+
+[node name="Spine2" type="RigidBody2D" parent="Spine6/Spine5/Spine4/Spine3"]
+position = Vector2( 0, -14 )
+collision_layer = 6
+collision_mask = 5
+mass = 0.102041
+physics_material_override = SubResource( 9 )
+script = ExtResource( 5 )
+
+[node name="ColorRect" type="ColorRect" parent="Spine6/Spine5/Spine4/Spine3/Spine2"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 46.5297
+margin_top = -9.0
+margin_right = 62.5297
+margin_bottom = 9.0
+
+[node name="Panel" type="Panel" parent="Spine6/Spine5/Spine4/Spine3/Spine2"]
+margin_left = -8.0
+margin_top = -9.0
+margin_right = 8.0
+margin_bottom = 9.0
+custom_styles/panel = ExtResource( 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spine6/Spine5/Spine4/Spine3/Spine2"]
+shape = SubResource( 8 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Spine6/Spine5/Spine4/Spine3/Spine2"]
+position = Vector2( 0, 7 )
+node_a = NodePath("..")
+node_b = NodePath("../..")
+
+[node name="Spine1" type="RigidBody2D" parent="Spine6/Spine5/Spine4/Spine3/Spine2"]
+position = Vector2( 0, -14 )
+collision_layer = 6
+collision_mask = 5
+mass = 0.102041
+physics_material_override = SubResource( 9 )
+can_sleep = false
+script = ExtResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="Spine6/Spine5/Spine4/Spine3/Spine2/Spine1"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -8.0
+margin_top = -9.0
+margin_right = 8.0
+margin_bottom = 9.0
+
+[node name="Panel" type="Panel" parent="Spine6/Spine5/Spine4/Spine3/Spine2/Spine1"]
+margin_left = -8.0
+margin_top = -9.0
+margin_right = 8.0
+margin_bottom = 9.0
+custom_styles/panel = ExtResource( 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spine6/Spine5/Spine4/Spine3/Spine2/Spine1"]
+shape = SubResource( 8 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Spine6/Spine5/Spine4/Spine3/Spine2/Spine1"]
+position = Vector2( 0, 7 )
+node_a = NodePath("..")
+node_b = NodePath("../..")
+
+[node name="Leg_L_up" type="RigidBody2D" parent="."]
+position = Vector2( -4, 28 )
+rotation = 0.0520928
+collision_layer = 2
+angular_damp = 3.0
+script = ExtResource( 3 )
+
+[node name="ColorRect" type="ColorRect" parent="Leg_L_up"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -7.0
+margin_top = -32.0
+margin_right = 7.0
+margin_bottom = 32.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Panel" type="Panel" parent="Leg_L_up"]
+margin_left = -7.0
+margin_top = -32.0
+margin_right = 7.0
+margin_bottom = 32.0
+custom_styles/panel = ExtResource( 9 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Leg_L_up"]
+shape = SubResource( 6 )
+
+[node name="PinJoint2D4" type="PinJoint2D" parent="Leg_L_up"]
+position = Vector2( 0.0984063, 25.8425 )
+node_a = NodePath("..")
+node_b = NodePath("../../Leg_L_down")
+
+[node name="PinJoint2D2" type="PinJoint2D" parent="Leg_L_up"]
+position = Vector2( 0.539349, -28.0662 )
+rotation = -0.0520928
+node_a = NodePath("../..")
+node_b = NodePath("..")
+
+[node name="Leg_L_down" type="RigidBody2D" parent="."]
+position = Vector2( -7, 79 )
+rotation = 0.0520928
+collision_layer = 2
+physics_material_override = SubResource( 7 )
+script = ExtResource( 3 )
+
+[node name="ColorRect" type="ColorRect" parent="Leg_L_down"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -7.0
+margin_top = -32.0
+margin_right = 7.0
+margin_bottom = 32.0
+
+[node name="Panel" type="Panel" parent="Leg_L_down"]
+margin_left = -7.0
+margin_top = -32.0
+margin_right = 7.0
+margin_bottom = 32.0
+custom_styles/panel = ExtResource( 9 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Leg_L_down"]
+shape = SubResource( 6 )
+
+[node name="Leg_R_up" type="RigidBody2D" parent="."]
+position = Vector2( 4, 28 )
+rotation = -0.0523599
+collision_layer = 2
+angular_damp = 3.0
+script = ExtResource( 3 )
+
+[node name="ColorRect" type="ColorRect" parent="Leg_R_up"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -7.0
+margin_top = -32.0
+margin_right = 7.0
+margin_bottom = 32.0
+color = Color( 0.996078, 0, 0, 1 )
+
+[node name="Panel" type="Panel" parent="Leg_R_up"]
+margin_left = -7.0
+margin_top = -32.0
+margin_right = 7.0
+margin_bottom = 32.0
+custom_styles/panel = ExtResource( 9 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Leg_R_up"]
+shape = SubResource( 6 )
+
+[node name="PinJoint2D5" type="PinJoint2D" parent="Leg_R_up"]
+position = Vector2( 0.688862, 25.0704 )
+node_a = NodePath("..")
+node_b = NodePath("../../Leg_R_down")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Leg_R_up"]
+position = Vector2( -0.531851, -28.0663 )
+rotation = 0.0523599
+node_a = NodePath("../..")
+node_b = NodePath("..")
+
+[node name="Leg_R_down" type="RigidBody2D" parent="."]
+position = Vector2( 7, 79 )
+rotation = -0.0523599
+collision_layer = 2
+physics_material_override = SubResource( 7 )
+script = ExtResource( 3 )
+
+[node name="ColorRect" type="ColorRect" parent="Leg_R_down"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -7.0
+margin_top = -32.0
+margin_right = 7.0
+margin_bottom = 32.0
+color = Color( 0, 0.482353, 0.996078, 1 )
+
+[node name="Panel" type="Panel" parent="Leg_R_down"]
+margin_left = -7.0
+margin_top = -32.0
+margin_right = 7.0
+margin_bottom = 32.0
+custom_styles/panel = ExtResource( 9 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Leg_R_down"]
+shape = SubResource( 6 )
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color( 0.905882, 0.94902, 0.168627, 1 )
+polygon = PoolVector2Array( 3, -26, 11, -26, 18, -25, 24, -23, 30, -18, 34, -12, 36, -6, 37, 0, 36, 7, 34, 13, 30, 18, 25, 22, 18, 25, 11, 26, -1, 26, -11, 26, -17, 25, -24, 23, -29, 19, -34, 13, -36, 6, -37, 0, -36, -7, -34, -13, -30, -18, -24, -23, -18, -25, -11, -26 )
+
+[node name="Pickup_range" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pickup_range"]
+position = Vector2( 0, 51.5 )
+shape = SubResource( 13 )
+
+[connection signal="body_entered" from="Pickup_range" to="." method="_on_Area2D_body_entered"]

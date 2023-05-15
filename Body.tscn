@@ -1,0 +1,275 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://item.gd" type="Script" id=2]
+[ext_resource path="res://Spear.gd" type="Script" id=3]
+[ext_resource path="res://box.gd" type="Script" id=4]
+[ext_resource path="res://Ostritch/Ostritch.tscn" type="PackedScene" id=5]
+[ext_resource path="res://s11111.jpg" type="Texture" id=6]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 20, 20 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 8061, 775 )
+
+[sub_resource type="RectangleShape2D" id=17]
+extents = Vector2( 98.8711, 3147.45 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 20, 20 )
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 5, 5 )
+
+[sub_resource type="CircleShape2D" id=12]
+radius = 14.0357
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 9.5, 64 )
+
+[sub_resource type="PhysicsMaterial" id=13]
+friction = 0.0
+
+[sub_resource type="CapsuleShape2D" id=14]
+radius = 30.0
+height = 0.0
+
+[sub_resource type="RectangleShape2D" id=15]
+custom_solver_bias = 1.0
+extents = Vector2( 91.5, 3.5 )
+
+[sub_resource type="ConvexPolygonShape2D" id=16]
+points = PoolVector2Array( 0, -10, 0, 10, 25, 0 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -430, -3344.51 )
+scale = Vector2( 3.54411, 41.0609 )
+texture = ExtResource( 6 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( -387, 108 )
+
+[node name="box" type="KinematicBody2D" parent="."]
+position = Vector2( 165, -10 )
+collision_layer = 15
+collision_mask = 15
+script = ExtResource( 4 )
+
+[node name="ColorRect" type="ColorRect" parent="box"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="box"]
+shape = SubResource( 4 )
+
+[node name="Floor" type="StaticBody2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Floor"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -8061.0
+margin_top = 371.0
+margin_right = 8061.0
+margin_bottom = 1921.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2( 0, 1146 )
+shape = SubResource( 5 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Floor"]
+visible = false
+position = Vector2( 1174, -28 )
+polygon = PoolVector2Array( -1228, 1022, 709, 946, 924, -313, -246, -282, -821, 322, -1114, 186, -1473, 392, -1793, 387, -2384, 132, -2618, 273, -2770, 115, -3057, 29, -3057, 29, -3063, 23, -3166, -15, -3356, -140, -3627, -80, -3817, 1, -3969, 39, -4327, 300, -4397, 376, -4956, 376, -4973, 284, -5146, 284, -5211, 365, -5499, 338, -5651, 365, -5629, 305, -5803, 316, -5874, 408, -6069, 202, -6161, 77, -6145, -9, -6112, -118, -6818, 387, -3654, 913 )
+disabled = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Floor"]
+position = Vector2( -2158.53, -2784.32 )
+shape = SubResource( 17 )
+
+[node name="ColorRect" type="ColorRect" parent="Floor/CollisionShape2D2"]
+margin_left = -99.0
+margin_top = -844.0
+margin_right = 99.0
+margin_bottom = 3152.0
+size_flags_horizontal = 5
+size_flags_vertical = 3
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Floor"]
+position = Vector2( 1008.77, -2784.32 )
+shape = SubResource( 17 )
+
+[node name="ColorRect" type="ColorRect" parent="Floor/CollisionShape2D3"]
+margin_left = -99.0
+margin_top = -844.0
+margin_right = 99.0
+margin_bottom = 3152.0
+size_flags_horizontal = 5
+size_flags_vertical = 3
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2( 306, 87 )
+mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="RigidBody2D"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.952941, 0, 0, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource( 9 )
+
+[node name="RigidBody2D2" type="RigidBody2D" parent="."]
+position = Vector2( 410, 87 )
+mass = 2.0
+
+[node name="ColorRect" type="ColorRect" parent="RigidBody2D2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 5.0
+margin_bottom = 5.0
+color = Color( 0.952941, 0, 0, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2"]
+shape = SubResource( 10 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( 692, -2 )
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
+margin_left = -21.0
+margin_top = -62.0
+margin_right = 29.0
+margin_bottom = 377.0
+color = Color( 0.698039, 0.698039, 0.698039, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( -155, 32 )
+shape = SubResource( 12 )
+
+[node name="ColorRect2" type="ColorRect" parent="StaticBody2D"]
+margin_left = -166.0
+margin_top = 23.0
+margin_right = -21.0
+margin_bottom = 43.0
+color = Color( 0.219608, 0.847059, 0.0705882, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="StaticBody2D"]
+margin_left = -166.0
+margin_top = 23.0
+margin_right = -144.0
+margin_bottom = 43.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( -12, 2 )
+shape = SubResource( 11 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( -570, -428 )
+current = true
+zoom = Vector2( 3, 3 )
+
+[node name="Ball" type="RigidBody2D" parent="." groups=["tool"]]
+position = Vector2( 34, 133 )
+collision_layer = 26
+collision_mask = 25
+mass = 0.00102041
+physics_material_override = SubResource( 13 )
+gravity_scale = 0.0
+can_sleep = false
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+shape = SubResource( 14 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Ball"]
+color = Color( 0.301961, 0.8, 0.427451, 0.670588 )
+polygon = PoolVector2Array( -2, -30, 11, -28, 25, -16, 0, 0, 29, 10, 19, 22, 9, 28, -4, 29, -12, 27, -21, 21, -28, 7, -29, -8, -25, -18, -16, -26 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Ball"]
+node_a = NodePath("..")
+
+[node name="Shuriken" type="RigidBody2D" parent="." groups=["tool"]]
+position = Vector2( -137, 261 )
+collision_layer = 16
+collision_mask = 17
+mass = 0.00102041
+physics_material_override = SubResource( 13 )
+contacts_reported = 2
+contact_monitor = true
+can_sleep = false
+script = ExtResource( 2 )
+sharp = true
+
+[node name="Polygon2D" type="Polygon2D" parent="Shuriken"]
+polygon = PoolVector2Array( -2, -30, 12, -10, 32, 0, 11, 10, 0, 32, -10, 9, -33, 0, -10, -11 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Shuriken"]
+polygon = PoolVector2Array( -1, 32, 10, 10, 31, 0, 12, -11, -2, -30, -10, -12, -33, -1, -10, 9 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Shuriken"]
+node_a = NodePath("..")
+
+[node name="Spear" type="RigidBody2D" parent="." groups=["tool"]]
+position = Vector2( -696, 194 )
+collision_layer = 16
+collision_mask = 17
+mass = 0.00102041
+physics_material_override = SubResource( 13 )
+contacts_reported = 4
+contact_monitor = true
+can_sleep = false
+script = ExtResource( 3 )
+sharp = true
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Spear"]
+position = Vector2( 45.8422, 0 )
+node_a = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spear"]
+shape = SubResource( 15 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Spear"]
+position = Vector2( 91, 0 )
+shape = SubResource( 16 )
+
+[node name="ColorRect" type="ColorRect" parent="Spear"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -91.0
+margin_top = -4.0
+margin_right = 92.0
+margin_bottom = 4.0
+color = Color( 0.227451, 0.156863, 0.0862745, 1 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Spear"]
+position = Vector2( 91, 0 )
+color = Color( 0.631373, 0.631373, 0.631373, 1 )
+polygon = PoolVector2Array( -0.00939941, -10.0412, -0.045105, 9.93271, 24.967, -0.000656128 )
+
+[node name="Ostritch" parent="." instance=ExtResource( 5 )]
+position = Vector2( 536.297, 215.261 )
