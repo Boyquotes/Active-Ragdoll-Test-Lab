@@ -157,4 +157,3 @@ func _integrate_forces(state):
 			if colliding[index] is RigidBody2D and !colliding[index].is_in_group("tool"):
 				if !impaled:
 					impale(colliding[index], state.get_contact_local_position(index))
-
