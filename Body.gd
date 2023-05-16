@@ -203,7 +203,7 @@ func _physics_process(_delta):
 		var distance_to_ground = raycast.get_collision_point().distance_to(raycast.global_position)
 
 		if (distance_to_ground < float_height) and !Input.is_action_pressed(crouch) and !Input.is_action_pressed(jump) and controllable:
-			chest_polygon.color = Color.red
+#			chest_polygon.color = Color.red
 
 			# Calculate the difference between the current height and the desired height
 			var height_difference = float_height - distance_to_ground
@@ -212,7 +212,7 @@ func _physics_process(_delta):
 			self.linear_velocity.y = -height_difference * float_force/100
 
 		elif (distance_to_ground > float_height+10) and !Input.is_action_pressed(crouch) and !Input.is_action_pressed(jump) and controllable:
-			chest_polygon.color = Color.yellow
+#			chest_polygon.color = Color.yellow
 
 			# Calculate the difference between the current height and the desired height
 			var height_difference = distance_to_ground - float_height

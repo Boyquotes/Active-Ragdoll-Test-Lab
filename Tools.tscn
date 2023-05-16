@@ -20,9 +20,9 @@ points = PoolVector2Array( 0, -10, 0, 10, 25, 0 )
 [node name="Tools" type="Node2D"]
 
 [node name="Ball" type="RigidBody2D" parent="." groups=["score-able", "tool"]]
-position = Vector2( 34, 133 )
-collision_layer = 26
-collision_mask = 25
+position = Vector2( 222.866, 191.113 )
+collision_layer = 18
+collision_mask = 17
 mass = 0.00102041
 physics_material_override = SubResource( 13 )
 can_sleep = false
@@ -33,10 +33,13 @@ shape = SubResource( 14 )
 
 [node name="Polygon2D" type="Polygon2D" parent="Ball"]
 color = Color( 0.301961, 0.8, 0.427451, 0.670588 )
-polygon = PoolVector2Array( -2, -30, 11, -28, 25, -16, 0, 0, 29, 10, 19, 22, 9, 28, -4, 29, -12, 27, -21, 21, -28, 7, -29, -8, -25, -18, -16, -26 )
+polygon = PoolVector2Array( -2, -30, 11, -28, 21.6444, -21.242, 26.2445, -14.8019, 29.6617, -5.99603, 29.2674, 5.30699, 25.9817, 14.77, 20.9873, 21.6044, 10.3414, 28.4388, -4, 29, -14.2361, 26.4673, -23.042, 18.9758, -29.0878, 7.27844, -29, -8, -25, -18, -16, -26 )
 
 [node name="PinJoint2D" type="PinJoint2D" parent="Ball"]
 node_a = NodePath("..")
+
+[node name="Polygon2D2" type="Polygon2D" parent="Ball"]
+polygon = PoolVector2Array( -13.5911, -27.1139, 0.0990753, -30.7231, 15.1583, -25.7449, 1.13023, -0.725815, 29.5952, 6.36485, 26.2349, 16.0724, 20.7588, 22.4197, 15.4072, 25.4066, 0.0658569, 1.15967, -16.5781, 25.2822, -25.6634, 15.948, -29.1481, 4.62247, -0.937698, -0.756226 )
 
 [node name="Shuriken" type="RigidBody2D" parent="." groups=["tool"]]
 position = Vector2( -137, 261 )

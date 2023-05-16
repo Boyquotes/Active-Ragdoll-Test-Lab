@@ -415,7 +415,6 @@ custom_styles/panel = ExtResource( 9 )
 shape = SubResource( 6 )
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color( 0.905882, 0.94902, 0.168627, 1 )
 polygon = PoolVector2Array( 3, -26, 11, -26, 18, -25, 24, -23, 30, -18, 34, -12, 36, -6, 37, 0, 36, 7, 34, 13, 30, 18, 25, 22, 18, 25, 11, 26, -1, 26, -11, 26, -17, 25, -24, 23, -29, 19, -34, 13, -36, 6, -37, 0, -36, -7, -34, -13, -30, -18, -24, -23, -18, -25, -11, -26 )
 
 [node name="Pickup_range" type="Area2D" parent="."]
