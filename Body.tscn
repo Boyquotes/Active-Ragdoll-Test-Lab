@@ -4,7 +4,7 @@
 [ext_resource path="res://item.gd" type="Script" id=2]
 [ext_resource path="res://Spear.gd" type="Script" id=3]
 [ext_resource path="res://box.gd" type="Script" id=4]
-[ext_resource path="res://Ostritch/Ostritch.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Player2.gd" type="Script" id=5]
 [ext_resource path="res://s11111.jpg" type="Texture" id=6]
 [ext_resource path="res://Tool_Spawner.gd" type="Script" id=7]
 
@@ -50,8 +50,12 @@ position = Vector2( -430, -3344.51 )
 scale = Vector2( 3.54411, 41.0609 )
 texture = ExtResource( 6 )
 
-[node name="Player" parent="." groups=["stabb-able"] instance=ExtResource( 1 )]
-position = Vector2( -387, 108 )
+[node name="Player1" parent="." groups=["stabb-able"] instance=ExtResource( 1 )]
+position = Vector2( 430.293, 236.252 )
+
+[node name="Player2" parent="." groups=["stabb-able"] instance=ExtResource( 1 )]
+position = Vector2( -1455.77, 246.311 )
+script = ExtResource( 5 )
 
 [node name="box" type="KinematicBody2D" parent="."]
 position = Vector2( 165, -10 )
@@ -194,9 +198,6 @@ shape = SubResource( 11 )
 position = Vector2( -570, -428 )
 current = true
 zoom = Vector2( 3, 3 )
-
-[node name="Ostritch" parent="." instance=ExtResource( 5 )]
-position = Vector2( 536.297, 215.261 )
 
 [node name="Tool_Spawner" type="Node2D" parent="."]
 script = ExtResource( 7 )

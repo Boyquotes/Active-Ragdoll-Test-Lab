@@ -67,11 +67,11 @@ var lower_leg_keyframes = [
 ]
 
 
-var jump = "ui_up"
-var crouch = "ui_down"
-var move_right = "ui_right"
-var move_left = "ui_left"
-var spin = "spin"
+var jump = "arrow_up"
+var crouch = "arrow_down"
+var move_right = "arrow_right"
+var move_left = "arrow_left"
+var spin = "arrow_spin"
 
 
 
@@ -91,7 +91,7 @@ func interpolate_keyframes(keyframes, progress):
 	return lerp_angle(current_angle, next_angle, t)
 
 
-#
+
 func _input(event):
 		
 	if event.is_action_pressed(spin) and controllable:
