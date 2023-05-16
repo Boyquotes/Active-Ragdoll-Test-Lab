@@ -67,7 +67,11 @@ var lower_leg_keyframes = [
 ]
 
 
-
+var jump = "ui_up"
+var crouch = "ui_down"
+var move_right = "ui_right"
+var move_left = "ui_left"
+var spin = "spin"
 
 
 
@@ -90,14 +94,14 @@ func interpolate_keyframes(keyframes, progress):
 #
 func _input(event):
 		
-	if event.is_action_pressed("spin") and controllable:
+	if event.is_action_pressed(spin) and controllable:
 		locked = false
 		
 		for part in spine:
 			part.locked = false
 		spin_dir = run_dir*-1
 
-	if event.is_action_released("spin") and controllable:
+	if event.is_action_released(spin) and controllable:
 		self.mode = RigidBody2D.MODE_CHARACTER
 		if grabbed_item:
 			grabbed_item.release()
@@ -111,17 +115,17 @@ func _input(event):
 		spin_multiplier = 1
 	
 	
-	if event.is_action_pressed("ui_left"):
+	if event.is_action_pressed(move_left):
 		variant = 1
 		mult = 1
 		run_dir = 1
-	if event.is_action_pressed("ui_right"):
+	if event.is_action_pressed(move_right):
 		variant = 1
 		mult = 1
 		run_dir = -1
 	
 	
-	if event.is_action_released("ui_up") and raycast.is_colliding():
+	if event.is_action_released(jump) and raycast.is_colliding():
 		auto_balance_timeout = 0.5
 		var power = (110-float_height)
 		linear_velocity.y = 0
@@ -135,11 +139,11 @@ func _input(event):
 	
 func _physics_process(_delta):
 	
-	if Input.is_action_pressed("ui_right") and controllable:
+	if Input.is_action_pressed(move_right) and controllable:
 		variant += 0.001
 		velocity.x = speed*variant
 	
-	elif Input.is_action_pressed("ui_left") and controllable:		
+	elif Input.is_action_pressed(move_left) and controllable:		
 		variant += 0.001
 		velocity.x = -speed*variant
 	
@@ -147,7 +151,7 @@ func _physics_process(_delta):
 		velocity.x -= velocity.x/10
 
 
-	if Input.is_action_pressed("spin") and controllable:
+	if Input.is_action_pressed(spin) and controllable:
 		spin_multiplier += 0.003
 		angular_velocity = 10*spin_dir*min(spin_multiplier, 1.33)  # Set a constant angular velocity
 
@@ -198,7 +202,7 @@ func _physics_process(_delta):
 
 		var distance_to_ground = raycast.get_collision_point().distance_to(raycast.global_position)
 
-		if (distance_to_ground < float_height) and !Input.is_action_pressed("ui_down") and !Input.is_action_pressed("ui_up") and controllable:
+		if (distance_to_ground < float_height) and !Input.is_action_pressed(crouch) and !Input.is_action_pressed(jump) and controllable:
 			chest_polygon.color = Color.red
 
 			# Calculate the difference between the current height and the desired height
@@ -207,7 +211,7 @@ func _physics_process(_delta):
 			# Set the vertical velocity to a value proportional to the height difference
 			self.linear_velocity.y = -height_difference * float_force/100
 
-		elif (distance_to_ground > float_height+10) and !Input.is_action_pressed("ui_down") and !Input.is_action_pressed("ui_up") and controllable:
+		elif (distance_to_ground > float_height+10) and !Input.is_action_pressed(crouch) and !Input.is_action_pressed(jump) and controllable:
 			chest_polygon.color = Color.yellow
 
 			# Calculate the difference between the current height and the desired height
@@ -220,7 +224,7 @@ func _physics_process(_delta):
 		auto_balance_timeout -= (0.0166666666)
 #		print(auto_balance_timeout)
 	
-	if Input.is_action_pressed("ui_up") and controllable and raycast.is_colliding():
+	if Input.is_action_pressed(jump) and controllable and raycast.is_colliding():
 		self.mode = RigidBody2D.MODE_RIGID
 
 #		Leg_L_up.locked = false
@@ -240,7 +244,7 @@ func _physics_process(_delta):
 #		print(float_height)
 		
 			
-	elif Input.is_action_pressed("ui_down") and controllable:
+	elif Input.is_action_pressed(crouch) and controllable:
 
 		# Increase gravity and apply a downward force when the down key is held
 #		apply_central_impulse(Vector2.DOWN * jump_power/10)

@@ -11,6 +11,7 @@ func release():
 	weight = 9.8
 	apply_central_impulse(Vector2(linear_velocity.x/275,linear_velocity.x/1000))
 
+
 #
 #
 #func _on_Spear_body_entered(body):

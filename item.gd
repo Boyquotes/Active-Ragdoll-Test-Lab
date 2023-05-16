@@ -43,6 +43,9 @@ func _physics_process(delta):
 	
 	pin.position = Vector2(0,0)
 	
+#	if target_node:
+#		scale.x = target_node.owner.run_dir
+	
 	
 	if cooldown == true and !impaled:
 		cooltime_wait += delta
