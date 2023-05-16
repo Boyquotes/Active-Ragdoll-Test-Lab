@@ -239,6 +239,7 @@ collision_layer = 16
 collision_mask = 17
 mass = 0.00102041
 physics_material_override = SubResource( 13 )
+continuous_cd = 2
 contacts_reported = 4
 contact_monitor = true
 can_sleep = false
@@ -274,5 +275,3 @@ polygon = PoolVector2Array( -0.00939941, -10.0412, -0.045105, 9.93271, 24.967, -
 
 [node name="Ostritch" parent="." instance=ExtResource( 5 )]
 position = Vector2( 536.297, 215.261 )
-
-[connection signal="body_entered" from="Spear" to="Spear" method="_on_Spear_body_entered"]

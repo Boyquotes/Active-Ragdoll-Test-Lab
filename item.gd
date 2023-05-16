@@ -28,7 +28,8 @@ onready var visual = get_node("Polygon2D")
 var available = false
 
 func _ready():
-	connect("body_entered", self, "_on_body_entered")
+	if sharp:
+		connect("body_entered", self, "_on_body_entered")
 
 func _input(event):
 	if event.is_action_pressed("snap"):
@@ -40,7 +41,7 @@ func _physics_process(delta):
 	pin.position = Vector2(0,0)
 	
 	
-	if cooldown == true:
+	if cooldown == true and !impaled:
 		cooltime_wait += delta
 		if cooltime_wait >= 0.2:
 			set_collision_mask_bit(1, true)
@@ -131,33 +132,46 @@ func is_stationary() -> bool:
 	else:
 		return false
 
-func impale(body, colliding_point):
+func impale(body, colliding_point, direction):
 	impaled = true
 
-	var penetration_vector = -self.linear_velocity.normalized() * 50
-	self.position -= penetration_vector
+#	var penetration_vector = -self.linear_velocity.normalized() * 10
+#	self.position -= direction*10
 
 
 	var joint = PinJoint2D.new()
 	joint.scale = Vector2(3,3)
-	
+	joint.disable_collision = true
 	body.add_child(joint)
 	joint.global_position = colliding_point
 	joint.node_a = self.get_path()
 	joint.node_b = body.get_path()
 	
-#
-#
-#func _integrate_forces(state):
-#	if sharp:
-#		var colliding = get_colliding_bodies()
-#		for index in colliding.size():
-#			if colliding[index] is RigidBody2D and !colliding[index].is_in_group("tool"):
-#				if !impaled:
-#					impale(colliding[index], state.get_contact_collider_position(index))
-#
-#					if colliding[index].get_node("Panel"):
-#						colliding[index].get_node("Panel").modulate = Color.red
-#					else:
-#						colliding[index].get_node("Polygon2D").modulate = Color.red
-#
+	var joint2 = PinJoint2D.new()
+	joint2.scale = Vector2(3,3)
+	joint2.disable_collision = true
+	body.add_child(joint2)
+	joint2.global_position = colliding_point-direction*40
+	joint2.node_a = self.get_path()
+	joint2.node_b = body.get_path()
+
+
+func _on_body_entered(body):
+	if sharp and !available:
+		if body is RigidBody2D and !body.is_in_group("tool"):
+			if !impaled:
+				var result = Physics2DTestMotionResult.new()
+				set_collision_mask_bit(0, false)
+				if self.test_motion(Vector2(0,0), false, 0.08, result):
+					impale(body, result.collision_point, result.collision_normal)
+				set_collision_mask_bit(0, true)
+				set_collision_mask_bit(1, false)
+				
+					
+				
+				if body.get_node("Panel"):
+					body.get_node("Panel").modulate = Color.red
+				elif body.get_node("Polygon2D"):
+					body.get_node("Polygon2D").modulate = Color.red
+					
+
