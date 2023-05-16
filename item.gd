@@ -8,6 +8,9 @@ var snap = false
 
 export var sharp = false
 
+signal done
+
+
 var force = 1
 var cooltime_wait = 0
 var cooldown = false
@@ -138,7 +141,6 @@ func impale(body, colliding_point, direction):
 #	var penetration_vector = -self.linear_velocity.normalized() * 10
 #	self.position -= direction*10
 
-
 	var joint = PinJoint2D.new()
 	joint.scale = Vector2(3,3)
 	joint.disable_collision = true
@@ -157,21 +159,44 @@ func impale(body, colliding_point, direction):
 
 
 func _on_body_entered(body):
-	if sharp and !available:
-		if body is RigidBody2D and !body.is_in_group("tool"):
+	if sharp and !available and !locked:
+		if body.is_in_group("stabb-able"):
 			if !impaled:
 				var result = Physics2DTestMotionResult.new()
-				set_collision_mask_bit(0, false)
+
+				
+				
+				if !(body is StaticBody2D):
+					set_collision_mask_bit(0, false)
+				else:
+					set_collision_mask_bit(0, true)
+					set_collision_layer_bit(0, true)
+						
+						
 				if self.test_motion(Vector2(0,0), false, 0.08, result):
 					impale(body, result.collision_point, result.collision_normal)
-				set_collision_mask_bit(0, true)
-				set_collision_mask_bit(1, false)
+					emit_signal("done")
 				
+				
+				if (body is StaticBody2D):
+					set_collision_mask_bit(1, true)
+					set_collision_layer_bit(1, true)
 					
+				
+				set_collision_mask_bit(0, true)
+
+#						set_collision_mask_bit(1, false)
+				
+				
+				
+				
+
 				
 				if body.get_node("Panel"):
 					body.get_node("Panel").modulate = Color.red
 				elif body.get_node("Polygon2D"):
 					body.get_node("Polygon2D").modulate = Color.red
 					
+				
+						
 

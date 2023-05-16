@@ -42,7 +42,7 @@ friction = 0.0
 radius = 26.0
 height = 22.0
 
-[node name="Ostritch" type="Node2D"]
+[node name="Ostritch" type="Node2D" groups=["stabb-able"]]
 
 [node name="Head" type="RigidBody2D" parent="."]
 position = Vector2( 46, -86 )
@@ -64,7 +64,7 @@ position = Vector2( 0, 23 )
 node_a = NodePath("../../Spine1")
 node_b = NodePath("..")
 
-[node name="Spine1" type="RigidBody2D" parent="."]
+[node name="Spine1" type="RigidBody2D" parent="." groups=["stabb-able"]]
 position = Vector2( 46, -56 )
 collision_layer = 2
 physics_material_override = SubResource( 3 )
@@ -99,7 +99,7 @@ position = Vector2( 0, 7 )
 node_a = NodePath("..")
 node_b = NodePath("../../Spine2")
 
-[node name="Spine2" type="RigidBody2D" parent="."]
+[node name="Spine2" type="RigidBody2D" parent="." groups=["stabb-able"]]
 position = Vector2( 46, -42 )
 collision_layer = 2
 physics_material_override = SubResource( 3 )
@@ -132,7 +132,7 @@ position = Vector2( 0, 7 )
 node_a = NodePath("..")
 node_b = NodePath("../../Spine3")
 
-[node name="Spine3" type="RigidBody2D" parent="."]
+[node name="Spine3" type="RigidBody2D" parent="." groups=["stabb-able"]]
 position = Vector2( 46, -28 )
 collision_layer = 2
 physics_material_override = SubResource( 3 )
@@ -165,7 +165,7 @@ position = Vector2( 0, 7 )
 node_a = NodePath("..")
 node_b = NodePath("../../Spine4")
 
-[node name="Spine4" type="RigidBody2D" parent="."]
+[node name="Spine4" type="RigidBody2D" parent="." groups=["stabb-able"]]
 position = Vector2( 46, -14 )
 collision_layer = 2
 physics_material_override = SubResource( 3 )
@@ -198,7 +198,7 @@ position = Vector2( 0, 7 )
 node_a = NodePath("..")
 node_b = NodePath("../../Spine5")
 
-[node name="Spine5" type="RigidBody2D" parent="."]
+[node name="Spine5" type="RigidBody2D" parent="." groups=["stabb-able"]]
 position = Vector2( 46, 0 )
 collision_layer = 2
 physics_material_override = SubResource( 3 )
@@ -231,7 +231,7 @@ position = Vector2( 0, 7 )
 node_a = NodePath("..")
 node_b = NodePath("../../Spine6")
 
-[node name="Spine6" type="RigidBody2D" parent="."]
+[node name="Spine6" type="RigidBody2D" parent="." groups=["stabb-able"]]
 position = Vector2( 46, 14 )
 collision_layer = 2
 gravity_scale = 0.0
@@ -263,7 +263,7 @@ position = Vector2( 0, 7 )
 node_a = NodePath("../../Body")
 node_b = NodePath("..")
 
-[node name="Leg_L_up" type="RigidBody2D" parent="."]
+[node name="Leg_L_up" type="RigidBody2D" parent="." groups=["stabb-able"]]
 position = Vector2( 3.39768, 68 )
 rotation = 0.0520928
 collision_layer = 2
@@ -303,7 +303,7 @@ rotation = -0.0520928
 node_a = NodePath("../../Body")
 node_b = NodePath("..")
 
-[node name="Leg_L_down" type="RigidBody2D" parent="."]
+[node name="Leg_L_down" type="RigidBody2D" parent="." groups=["stabb-able"]]
 position = Vector2( 0.688492, 119 )
 rotation = 0.0520928
 collision_layer = 2
@@ -331,7 +331,7 @@ custom_styles/panel = ExtResource( 4 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Leg_L_down"]
 shape = SubResource( 5 )
 
-[node name="Leg_R_up" type="RigidBody2D" parent="."]
+[node name="Leg_R_up" type="RigidBody2D" parent="." groups=["stabb-able"]]
 position = Vector2( 7.39768, 68 )
 rotation = -0.0523599
 collision_layer = 2
@@ -372,7 +372,7 @@ rotation = 0.0523599
 node_a = NodePath("../../Body")
 node_b = NodePath("..")
 
-[node name="Leg_R_down" type="RigidBody2D" parent="."]
+[node name="Leg_R_down" type="RigidBody2D" parent="." groups=["stabb-able"]]
 position = Vector2( 10.3977, 119 )
 rotation = -0.0523599
 collision_layer = 2
@@ -401,7 +401,7 @@ custom_styles/panel = ExtResource( 4 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Leg_R_down"]
 shape = SubResource( 5 )
 
-[node name="Body" type="RigidBody2D" parent="."]
+[node name="Body" type="RigidBody2D" parent="." groups=["stabb-able"]]
 position = Vector2( 14, 28 )
 collision_layer = 2
 mode = 2

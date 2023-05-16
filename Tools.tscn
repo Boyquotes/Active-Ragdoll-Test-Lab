@@ -1,0 +1,102 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://item.gd" type="Script" id=1]
+[ext_resource path="res://Spear.gd" type="Script" id=2]
+
+[sub_resource type="PhysicsMaterial" id=13]
+friction = 0.0
+
+[sub_resource type="CapsuleShape2D" id=14]
+radius = 30.0
+height = 0.0
+
+[sub_resource type="RectangleShape2D" id=15]
+custom_solver_bias = 1.0
+extents = Vector2( 91.5, 3.5 )
+
+[sub_resource type="ConvexPolygonShape2D" id=16]
+points = PoolVector2Array( 0, -10, 0, 10, 25, 0 )
+
+[node name="Tools" type="Node2D"]
+
+[node name="Ball" type="RigidBody2D" parent="." groups=["tool"]]
+position = Vector2( 34, 133 )
+collision_layer = 26
+collision_mask = 25
+mass = 0.00102041
+physics_material_override = SubResource( 13 )
+gravity_scale = 0.0
+can_sleep = false
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+shape = SubResource( 14 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Ball"]
+color = Color( 0.301961, 0.8, 0.427451, 0.670588 )
+polygon = PoolVector2Array( -2, -30, 11, -28, 25, -16, 0, 0, 29, 10, 19, 22, 9, 28, -4, 29, -12, 27, -21, 21, -28, 7, -29, -8, -25, -18, -16, -26 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Ball"]
+node_a = NodePath("..")
+
+[node name="Shuriken" type="RigidBody2D" parent="." groups=["tool"]]
+position = Vector2( -137, 261 )
+collision_layer = 16
+collision_mask = 17
+mass = 0.00102041
+physics_material_override = SubResource( 13 )
+contacts_reported = 2
+contact_monitor = true
+can_sleep = false
+script = ExtResource( 1 )
+sharp = true
+
+[node name="Polygon2D" type="Polygon2D" parent="Shuriken"]
+polygon = PoolVector2Array( -2, -30, 12, -10, 32, 0, 11, 10, 0, 32, -10, 9, -33, 0, -10, -11 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Shuriken"]
+polygon = PoolVector2Array( -1, 32, 10, 10, 31, 0, 12, -11, -2, -30, -10, -12, -33, -1, -10, 9 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Shuriken"]
+node_a = NodePath("..")
+
+[node name="Spear" type="RigidBody2D" parent="." groups=["tool"]]
+physics_interpolation_mode = 2
+position = Vector2( -696, 194 )
+collision_layer = 16
+collision_mask = 17
+mass = 0.00102041
+physics_material_override = SubResource( 13 )
+continuous_cd = 2
+contacts_reported = 4
+contact_monitor = true
+can_sleep = false
+script = ExtResource( 2 )
+sharp = true
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Spear"]
+position = Vector2( 45.8422, 0 )
+node_a = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spear"]
+shape = SubResource( 15 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Spear"]
+position = Vector2( 91, 0 )
+shape = SubResource( 16 )
+
+[node name="ColorRect" type="ColorRect" parent="Spear"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -91.0
+margin_top = -4.0
+margin_right = 92.0
+margin_bottom = 4.0
+color = Color( 0.227451, 0.156863, 0.0862745, 1 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Spear"]
+position = Vector2( 91, 0 )
+color = Color( 0.631373, 0.631373, 0.631373, 1 )
+polygon = PoolVector2Array( -0.00939941, -10.0412, -0.045105, 9.93271, 24.967, -0.000656128 )

@@ -1,11 +1,8 @@
 extends RigidBody2D
-#torso script
-#these are variables for movement script
-
 
 var speed = 400
 
-var jump_power=1000;
+var jump_power=1000
 
 var spin_power = 50
 #again the varaible to store desired angle
@@ -70,16 +67,16 @@ var lower_leg_keyframes = [
 ]
 
 
+
+
+
+
 func _ready():
 	grabber = spine1
 	stride = 0.0
 	body = [spine1, spine2, spine3, spine4, spine5, spine6, self, Leg_L_up, Leg_L_down, Leg_R_up, Leg_R_down]
 	spine = [spine1, spine2, spine3, spine4, spine5, spine6]
 	legs = [Leg_L_up, Leg_L_down, Leg_R_up, Leg_R_down]
-
-
-
-
 
 
 func interpolate_keyframes(keyframes, progress):
@@ -124,7 +121,7 @@ func _input(event):
 		run_dir = -1
 	
 	
-	if event.is_action_released("ui_up"):
+	if event.is_action_released("ui_up") and raycast.is_colliding():
 		auto_balance_timeout = 0.5
 		var power = (110-float_height)
 		linear_velocity.y = 0
@@ -134,7 +131,7 @@ func _input(event):
 			
 		self.apply_central_impulse(Vector2(0, jump_power*-1*(3+min(power/20, 5))))
 		float_height = 100
-		print(-jump_power*(min(power/5, 11)))
+#		print(-jump_power*(min(power/5, 11)))
 	
 func _physics_process(_delta):
 	
@@ -221,7 +218,7 @@ func _physics_process(_delta):
 
 	else:
 		auto_balance_timeout -= (0.0166666666)
-		print(auto_balance_timeout)
+#		print(auto_balance_timeout)
 	
 	if Input.is_action_pressed("ui_up") and controllable and raycast.is_colliding():
 		self.mode = RigidBody2D.MODE_RIGID
