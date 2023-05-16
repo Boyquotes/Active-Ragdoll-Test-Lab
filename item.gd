@@ -23,15 +23,12 @@ onready var target_node: Node2D  # The node we want to follow
 
 onready var pin = get_node("PinJoint2D")
 onready var visual = get_node("Polygon2D")
-onready var collision = get_node("CollisionShape2D")
 
 	
 var available = false
 
 func _ready():
-	if !collision:
-		collision = get_node("CollisionPolygon2D")
-
+	connect("body_entered", self, "_on_body_entered")
 
 func _input(event):
 	if event.is_action_pressed("snap"):
@@ -142,18 +139,25 @@ func impale(body, colliding_point):
 
 
 	var joint = PinJoint2D.new()
-#	joint.scale = Vector2(10,10)
+	joint.scale = Vector2(3,3)
+	
 	body.add_child(joint)
 	joint.global_position = colliding_point
 	joint.node_a = self.get_path()
 	joint.node_b = body.get_path()
 	
-
-
-func _integrate_forces(state):
-	if sharp:
-		var colliding = get_colliding_bodies()
-		for index in colliding.size():
-			if colliding[index] is RigidBody2D and !colliding[index].is_in_group("tool"):
-				if !impaled:
-					impale(colliding[index], state.get_contact_local_position(index))
+#
+#
+#func _integrate_forces(state):
+#	if sharp:
+#		var colliding = get_colliding_bodies()
+#		for index in colliding.size():
+#			if colliding[index] is RigidBody2D and !colliding[index].is_in_group("tool"):
+#				if !impaled:
+#					impale(colliding[index], state.get_contact_collider_position(index))
+#
+#					if colliding[index].get_node("Panel"):
+#						colliding[index].get_node("Panel").modulate = Color.red
+#					else:
+#						colliding[index].get_node("Polygon2D").modulate = Color.red
+#

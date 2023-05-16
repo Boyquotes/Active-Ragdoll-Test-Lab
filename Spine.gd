@@ -30,12 +30,14 @@ func _process(delta):
 
 	if locked:
 		angular_velocity = lerp_angle(current_angle, (new_desired_angle), (power)* delta)
-		color_object.modulate = Color.green
+#		color_object.modulate = Color.green
 		
 	else:
 #		new_desired_angle = deg2rad(0)
 #		angular_velocity = lerp_angle(current_angle, (new_desired_angle), (power)* delta)
-		color_object.modulate = Color.red
+
+#		color_object.modulate = Color.red
+		pass
 
 
 func calculate_overshot(angle):

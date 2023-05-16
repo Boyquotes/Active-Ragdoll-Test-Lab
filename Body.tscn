@@ -233,6 +233,7 @@ polygon = PoolVector2Array( -1, 32, 10, 10, 31, 0, 12, -11, -2, -30, -10, -12, -
 node_a = NodePath("..")
 
 [node name="Spear" type="RigidBody2D" parent="." groups=["tool"]]
+physics_interpolation_mode = 2
 position = Vector2( -696, 194 )
 collision_layer = 16
 collision_mask = 17
@@ -273,3 +274,5 @@ polygon = PoolVector2Array( -0.00939941, -10.0412, -0.045105, 9.93271, 24.967, -
 
 [node name="Ostritch" parent="." instance=ExtResource( 5 )]
 position = Vector2( 536.297, 215.261 )
+
+[connection signal="body_entered" from="Spear" to="Spear" method="_on_Spear_body_entered"]
