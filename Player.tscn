@@ -99,6 +99,7 @@ shape = SubResource( 8 )
 position = Vector2( 0, 7 )
 node_a = NodePath("../..")
 node_b = NodePath("..")
+softness = 1.0
 
 [node name="Spine5" type="RigidBody2D" parent="Spine6"]
 position = Vector2( 0, -14 )
@@ -133,6 +134,7 @@ shape = SubResource( 8 )
 position = Vector2( 0, 7 )
 node_a = NodePath("..")
 node_b = NodePath("../..")
+softness = 1.0
 
 [node name="Spine4" type="RigidBody2D" parent="Spine6/Spine5"]
 position = Vector2( 0, -14 )
@@ -167,6 +169,7 @@ shape = SubResource( 8 )
 position = Vector2( 0, 7 )
 node_a = NodePath("..")
 node_b = NodePath("../..")
+softness = 1.0
 
 [node name="Spine3" type="RigidBody2D" parent="Spine6/Spine5/Spine4"]
 position = Vector2( 0, -14 )
@@ -201,6 +204,7 @@ shape = SubResource( 8 )
 position = Vector2( 0, 7 )
 node_a = NodePath("..")
 node_b = NodePath("../..")
+softness = 1.0
 
 [node name="Spine2" type="RigidBody2D" parent="Spine6/Spine5/Spine4/Spine3"]
 position = Vector2( 0, -14 )
@@ -235,6 +239,7 @@ shape = SubResource( 8 )
 position = Vector2( 0, 7 )
 node_a = NodePath("..")
 node_b = NodePath("../..")
+softness = 1.0
 
 [node name="Spine1" type="RigidBody2D" parent="Spine6/Spine5/Spine4/Spine3/Spine2"]
 position = Vector2( 0, -14 )
@@ -270,6 +275,7 @@ shape = SubResource( 8 )
 position = Vector2( 0, 7 )
 node_a = NodePath("..")
 node_b = NodePath("../..")
+softness = 1.0
 
 [node name="Leg_L_up" type="RigidBody2D" parent="."]
 position = Vector2( -4, 28 )
@@ -413,7 +419,7 @@ color = Color( 0.905882, 0.94902, 0.168627, 1 )
 polygon = PoolVector2Array( 3, -26, 11, -26, 18, -25, 24, -23, 30, -18, 34, -12, 36, -6, 37, 0, 36, 7, 34, 13, 30, 18, 25, 22, 18, 25, 11, 26, -1, 26, -11, 26, -17, 25, -24, 23, -29, 19, -34, 13, -36, 6, -37, 0, -36, -7, -34, -13, -30, -18, -24, -23, -18, -25, -11, -26 )
 
 [node name="Pickup_range" type="Area2D" parent="."]
-collision_layer = 16
+collision_layer = 0
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pickup_range"]

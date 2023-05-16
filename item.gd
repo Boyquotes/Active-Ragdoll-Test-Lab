@@ -33,10 +33,10 @@ var available = false
 func _ready():
 	if sharp:
 		connect("body_entered", self, "_on_body_entered")
-
-func _input(event):
-	if event.is_action_pressed("snap"):
-		snap = true
+#
+#func _input(event):
+#	if event.is_action_pressed("snap"):
+#		snap = true
 
 
 func _physics_process(delta):
@@ -49,9 +49,10 @@ func _physics_process(delta):
 	
 	if cooldown == true and !impaled:
 		cooltime_wait += delta
-		if cooltime_wait >= 0.2:
+		if cooltime_wait >= 0.05:
 			set_collision_mask_bit(1, true)
-			pass
+			visual.color = Color.black
+			
 			
 		if cooltime_wait >= cooltime:
 			cooldown = false
@@ -162,8 +163,10 @@ func impale(body, colliding_point, direction):
 
 
 func _on_body_entered(body):
-	if sharp and !available and !locked:
-		if body.is_in_group("stabb-able"):
+	if sharp and !available and !locked and !snap:
+		var me = target_node.owner
+		var hitted = body.owner
+		if body.is_in_group("stabb-able") and (target_node.owner != body.owner):
 			if !impaled:
 				var result = Physics2DTestMotionResult.new()
 
@@ -173,7 +176,7 @@ func _on_body_entered(body):
 					set_collision_mask_bit(0, false)
 				else:
 					set_collision_mask_bit(0, true)
-					set_collision_layer_bit(0, true)
+#					set_collision_layer_bit(0, true)
 						
 						
 				if self.test_motion(Vector2(0,0), false, 0.08, result):
@@ -184,6 +187,9 @@ func _on_body_entered(body):
 				if (body is StaticBody2D):
 					set_collision_mask_bit(1, true)
 					set_collision_layer_bit(1, true)
+				else:
+					set_collision_mask_bit(1, false)
+					set_collision_layer_bit(1, false)
 					
 				
 				set_collision_mask_bit(0, true)

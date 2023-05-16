@@ -1,12 +1,22 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://item.gd" type="Script" id=2]
-[ext_resource path="res://Spear.gd" type="Script" id=3]
+[ext_resource path="res://Ostritch_Panel_Neck.tres" type="StyleBox" id=2]
+[ext_resource path="res://Hoop.gd" type="Script" id=3]
 [ext_resource path="res://box.gd" type="Script" id=4]
 [ext_resource path="res://Player2.gd" type="Script" id=5]
-[ext_resource path="res://s11111.jpg" type="Texture" id=6]
 [ext_resource path="res://Tool_Spawner.gd" type="Script" id=7]
+
+[sub_resource type="CircleShape2D" id=12]
+radius = 14.0357
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 9.5, 64 )
+
+[sub_resource type="CapsuleShape2D" id=18]
+
+[sub_resource type="LineShape2D" id=19]
+normal = Vector2( 0, 10 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 20, 20 )
@@ -23,42 +33,427 @@ extents = Vector2( 20, 20 )
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 5, 5 )
 
-[sub_resource type="CircleShape2D" id=12]
-radius = 14.0357
+[node name="Game" type="Node2D"]
 
-[sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 9.5, 64 )
+[node name="Background" type="ColorRect" parent="."]
+margin_left = -1530.0
+margin_top = -1565.0
+margin_right = 1542.0
+margin_bottom = 414.0
+color = Color( 0.815686, 0, 0, 0.482353 )
 
-[sub_resource type="PhysicsMaterial" id=13]
-friction = 0.0
+[node name="Hoop_left" type="StaticBody2D" parent="."]
+position = Vector2( -1489, -2 )
+rotation = 3.14159
+scale = Vector2( 1, -1 )
+script = ExtResource( 3 )
 
-[sub_resource type="CapsuleShape2D" id=14]
-radius = 30.0
-height = 0.0
+[node name="ColorRect" type="ColorRect" parent="Hoop_left"]
+margin_left = -21.0
+margin_top = -62.0
+margin_right = -2.0
+margin_bottom = 377.0
+color = Color( 0.698039, 0.698039, 0.698039, 1 )
 
-[sub_resource type="RectangleShape2D" id=15]
-custom_solver_bias = 1.0
-extents = Vector2( 91.5, 3.5 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop_left"]
+position = Vector2( -155, 32 )
+shape = SubResource( 12 )
 
-[sub_resource type="ConvexPolygonShape2D" id=16]
-points = PoolVector2Array( 0, -10, 0, 10, 25, 0 )
+[node name="ColorRect2" type="ColorRect" parent="Hoop_left"]
+margin_left = -166.0
+margin_top = 23.0
+margin_right = -21.0
+margin_bottom = 43.0
+color = Color( 0.219608, 0.847059, 0.0705882, 1 )
 
-[node name="Node2D" type="Node2D"]
+[node name="ColorRect3" type="ColorRect" parent="Hoop_left"]
+margin_left = -166.0
+margin_top = 23.0
+margin_right = -144.0
+margin_bottom = 43.0
+color = Color( 0, 0, 0, 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -430, -3344.51 )
-scale = Vector2( 3.54411, 41.0609 )
-texture = ExtResource( 6 )
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hoop_left"]
+position = Vector2( -12, 2 )
+shape = SubResource( 11 )
+
+[node name="ColorRect" type="ColorRect" parent="Hoop_left/CollisionShape2D2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -9.0
+margin_top = -63.0
+margin_right = 10.0
+margin_bottom = 64.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="net" type="RigidBody2D" parent="Hoop_left"]
+position = Vector2( -147.186, 61.0148 )
+rotation = -0.401426
+mass = 0.1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop_left/net"]
+shape = SubResource( 18 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Hoop_left/net"]
+position = Vector2( 0, -18 )
+node_a = NodePath("../..")
+node_b = NodePath("..")
+
+[node name="Panel" type="Panel" parent="Hoop_left/net"]
+modulate = Color( 0.909804, 0.909804, 0.909804, 1 )
+self_modulate = Color( 1, 1, 1, 0.501961 )
+margin_left = -10.0
+margin_top = -19.0
+margin_right = 10.0
+margin_bottom = 20.0
+custom_styles/panel = ExtResource( 2 )
+
+[node name="net2" type="RigidBody2D" parent="Hoop_left/net"]
+position = Vector2( 0, 35 )
+rotation = -0.0521541
+mass = 0.1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop_left/net/net2"]
+shape = SubResource( 18 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Hoop_left/net/net2"]
+position = Vector2( 0, -18 )
+node_a = NodePath("../..")
+node_b = NodePath("..")
+
+[node name="Panel" type="Panel" parent="Hoop_left/net/net2"]
+modulate = Color( 0.909804, 0.909804, 0.909804, 1 )
+self_modulate = Color( 1, 1, 1, 0.501961 )
+margin_left = -10.0
+margin_top = -19.0
+margin_right = 10.0
+margin_bottom = 20.0
+custom_styles/panel = ExtResource( 2 )
+
+[node name="net3" type="RigidBody2D" parent="Hoop_left/net/net2"]
+position = Vector2( 13.8799, 30.7509 )
+rotation = -0.714946
+mass = 0.1
+gravity_scale = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop_left/net/net2/net3"]
+shape = SubResource( 18 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Hoop_left/net/net2/net3"]
+position = Vector2( 0, -18 )
+node_a = NodePath("../..")
+node_b = NodePath("..")
+
+[node name="Panel" type="Panel" parent="Hoop_left/net/net2/net3"]
+modulate = Color( 0.909804, 0.909804, 0.909804, 1 )
+self_modulate = Color( 1, 1, 1, 0.501961 )
+margin_left = -10.0
+margin_top = -19.0
+margin_right = 10.0
+margin_bottom = 20.0
+custom_styles/panel = ExtResource( 2 )
+
+[node name="net4" type="RigidBody2D" parent="Hoop_left"]
+position = Vector2( -27.3754, 59.8347 )
+rotation = 0.401426
+mass = 0.1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop_left/net4"]
+shape = SubResource( 18 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Hoop_left/net4"]
+position = Vector2( 0, -18 )
+node_a = NodePath("../..")
+node_b = NodePath("..")
+
+[node name="Panel" type="Panel" parent="Hoop_left/net4"]
+modulate = Color( 0.909804, 0.909804, 0.909804, 1 )
+self_modulate = Color( 1, 1, 1, 0.501961 )
+margin_left = -10.0
+margin_top = -19.0
+margin_right = 10.0
+margin_bottom = 20.0
+custom_styles/panel = ExtResource( 2 )
+
+[node name="net5" type="RigidBody2D" parent="Hoop_left/net4"]
+position = Vector2( 0, 35 )
+mass = 0.1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop_left/net4/net5"]
+shape = SubResource( 18 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Hoop_left/net4/net5"]
+position = Vector2( 0, -18 )
+node_a = NodePath("../..")
+node_b = NodePath("..")
+
+[node name="Panel" type="Panel" parent="Hoop_left/net4/net5"]
+modulate = Color( 0.909804, 0.909804, 0.909804, 1 )
+self_modulate = Color( 1, 1, 1, 0.501961 )
+margin_left = -10.0
+margin_top = -19.0
+margin_right = 10.0
+margin_bottom = 20.0
+custom_styles/panel = ExtResource( 2 )
+
+[node name="net6" type="RigidBody2D" parent="Hoop_left/net4/net5"]
+position = Vector2( -17.8102, 32.7107 )
+rotation = 0.725735
+mass = 0.1
+gravity_scale = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop_left/net4/net5/net6"]
+shape = SubResource( 18 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Hoop_left/net4/net5/net6"]
+position = Vector2( 0, -18 )
+node_a = NodePath("../..")
+node_b = NodePath("..")
+
+[node name="Panel" type="Panel" parent="Hoop_left/net4/net5/net6"]
+modulate = Color( 0.909804, 0.909804, 0.909804, 1 )
+self_modulate = Color( 1, 1, 1, 0.501961 )
+margin_left = -10.0
+margin_top = -19.0
+margin_right = 10.0
+margin_bottom = 20.0
+custom_styles/panel = ExtResource( 2 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Hoop_left"]
+position = Vector2( -89, 118 )
+node_a = NodePath("../net/net2/net3")
+node_b = NodePath("../net4/net5/net6")
+
+[node name="Hoop_Goal" type="Area2D" parent="Hoop_left"]
+position = Vector2( -88, 34 )
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hoop_left/Hoop_Goal"]
+polygon = PoolVector2Array( 67, -11, 67, 8, 49, 49, 22, 67, -20, 66, -46, 47, -58, 8, -58, -10 )
+
+[node name="Timer" type="Timer" parent="Hoop_left"]
+process_mode = 0
+wait_time = 3.0
+
+[node name="Hoop_right" type="StaticBody2D" parent="."]
+position = Vector2( 1483, -2 )
+script = ExtResource( 3 )
+
+[node name="ColorRect" type="ColorRect" parent="Hoop_right"]
+margin_left = -21.0
+margin_top = -62.0
+margin_right = -2.0
+margin_bottom = 377.0
+color = Color( 0.698039, 0.698039, 0.698039, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop_right"]
+position = Vector2( -155, 32 )
+shape = SubResource( 12 )
+
+[node name="ColorRect2" type="ColorRect" parent="Hoop_right"]
+margin_left = -166.0
+margin_top = 23.0
+margin_right = -21.0
+margin_bottom = 43.0
+color = Color( 0.219608, 0.847059, 0.0705882, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Hoop_right"]
+margin_left = -166.0
+margin_top = 23.0
+margin_right = -144.0
+margin_bottom = 43.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hoop_right"]
+position = Vector2( -12, 2 )
+shape = SubResource( 11 )
+
+[node name="ColorRect" type="ColorRect" parent="Hoop_right/CollisionShape2D2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -9.0
+margin_top = -63.0
+margin_right = 10.0
+margin_bottom = 64.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="net" type="RigidBody2D" parent="Hoop_right"]
+position = Vector2( -147.186, 61.0148 )
+rotation = -0.401426
+mass = 0.1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop_right/net"]
+shape = SubResource( 18 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Hoop_right/net"]
+position = Vector2( 0, -18 )
+node_a = NodePath("../..")
+node_b = NodePath("..")
+
+[node name="Panel" type="Panel" parent="Hoop_right/net"]
+modulate = Color( 0.909804, 0.909804, 0.909804, 1 )
+self_modulate = Color( 1, 1, 1, 0.501961 )
+margin_left = -10.0
+margin_top = -19.0
+margin_right = 10.0
+margin_bottom = 20.0
+custom_styles/panel = ExtResource( 2 )
+
+[node name="net2" type="RigidBody2D" parent="Hoop_right/net"]
+position = Vector2( 0, 35 )
+rotation = -0.0521541
+mass = 0.1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop_right/net/net2"]
+shape = SubResource( 18 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Hoop_right/net/net2"]
+position = Vector2( 0, -18 )
+node_a = NodePath("../..")
+node_b = NodePath("..")
+
+[node name="Panel" type="Panel" parent="Hoop_right/net/net2"]
+modulate = Color( 0.909804, 0.909804, 0.909804, 1 )
+self_modulate = Color( 1, 1, 1, 0.501961 )
+margin_left = -10.0
+margin_top = -19.0
+margin_right = 10.0
+margin_bottom = 20.0
+custom_styles/panel = ExtResource( 2 )
+
+[node name="net3" type="RigidBody2D" parent="Hoop_right/net/net2"]
+position = Vector2( 13.8799, 30.7509 )
+rotation = -0.714946
+mass = 0.1
+gravity_scale = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop_right/net/net2/net3"]
+shape = SubResource( 18 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Hoop_right/net/net2/net3"]
+position = Vector2( 0, -18 )
+node_a = NodePath("../..")
+node_b = NodePath("..")
+
+[node name="Panel" type="Panel" parent="Hoop_right/net/net2/net3"]
+modulate = Color( 0.909804, 0.909804, 0.909804, 1 )
+self_modulate = Color( 1, 1, 1, 0.501961 )
+margin_left = -10.0
+margin_top = -19.0
+margin_right = 10.0
+margin_bottom = 20.0
+custom_styles/panel = ExtResource( 2 )
+
+[node name="net4" type="RigidBody2D" parent="Hoop_right"]
+position = Vector2( -27.3754, 59.8347 )
+rotation = 0.401426
+mass = 0.1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop_right/net4"]
+shape = SubResource( 18 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Hoop_right/net4"]
+position = Vector2( 0, -18 )
+node_a = NodePath("../..")
+node_b = NodePath("..")
+
+[node name="Panel" type="Panel" parent="Hoop_right/net4"]
+modulate = Color( 0.909804, 0.909804, 0.909804, 1 )
+self_modulate = Color( 1, 1, 1, 0.501961 )
+margin_left = -10.0
+margin_top = -19.0
+margin_right = 10.0
+margin_bottom = 20.0
+custom_styles/panel = ExtResource( 2 )
+
+[node name="net5" type="RigidBody2D" parent="Hoop_right/net4"]
+position = Vector2( 0, 35 )
+mass = 0.1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop_right/net4/net5"]
+shape = SubResource( 18 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Hoop_right/net4/net5"]
+position = Vector2( 0, -18 )
+node_a = NodePath("../..")
+node_b = NodePath("..")
+
+[node name="Panel" type="Panel" parent="Hoop_right/net4/net5"]
+modulate = Color( 0.909804, 0.909804, 0.909804, 1 )
+self_modulate = Color( 1, 1, 1, 0.501961 )
+margin_left = -10.0
+margin_top = -19.0
+margin_right = 10.0
+margin_bottom = 20.0
+custom_styles/panel = ExtResource( 2 )
+
+[node name="net6" type="RigidBody2D" parent="Hoop_right/net4/net5"]
+position = Vector2( -17.8102, 32.7107 )
+rotation = 0.725735
+mass = 0.1
+gravity_scale = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hoop_right/net4/net5/net6"]
+shape = SubResource( 18 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Hoop_right/net4/net5/net6"]
+position = Vector2( 0, -18 )
+node_a = NodePath("../..")
+node_b = NodePath("..")
+
+[node name="Panel" type="Panel" parent="Hoop_right/net4/net5/net6"]
+modulate = Color( 0.909804, 0.909804, 0.909804, 1 )
+self_modulate = Color( 1, 1, 1, 0.501961 )
+margin_left = -10.0
+margin_top = -19.0
+margin_right = 10.0
+margin_bottom = 20.0
+custom_styles/panel = ExtResource( 2 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Hoop_right"]
+position = Vector2( -89, 118 )
+node_a = NodePath("../net/net2/net3")
+node_b = NodePath("../net4/net5/net6")
+
+[node name="Hoop_Goal" type="Area2D" parent="Hoop_right"]
+position = Vector2( -88, 34 )
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hoop_right/Hoop_Goal"]
+polygon = PoolVector2Array( 67, -11, 67, 8, 49, 49, 22, 67, -20, 66, -46, 47, -58, 8, -58, -10 )
+
+[node name="Timer" type="Timer" parent="Hoop_right"]
+process_mode = 0
+wait_time = 3.0
 
 [node name="Player1" parent="." groups=["stabb-able"] instance=ExtResource( 1 )]
-position = Vector2( 430.293, 236.252 )
+position = Vector2( 1000.06, 236.252 )
 
 [node name="Player2" parent="." groups=["stabb-able"] instance=ExtResource( 1 )]
-position = Vector2( -1455.77, 246.311 )
+position = Vector2( -886, 246.311 )
+scale = Vector2( -1, 1 )
 script = ExtResource( 5 )
 
+[node name="Seperator" type="StaticBody2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Seperator"]
+position = Vector2( 0, -24 )
+shape = SubResource( 19 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Seperator"]
+position = Vector2( 0, -734 )
+shape = SubResource( 19 )
+
 [node name="box" type="KinematicBody2D" parent="."]
-position = Vector2( 165, -10 )
+position = Vector2( 734.77, -10 )
 collision_layer = 15
 collision_mask = 15
 script = ExtResource( 4 )
@@ -78,6 +473,7 @@ color = Color( 0, 0, 0, 1 )
 shape = SubResource( 4 )
 
 [node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2( 569.77, 0 )
 
 [node name="ColorRect" type="ColorRect" parent="Floor"]
 anchor_left = 0.5
@@ -88,8 +484,10 @@ margin_left = -8061.0
 margin_top = 371.0
 margin_right = 8061.0
 margin_bottom = 1921.0
+color = Color( 0.627451, 0.627451, 0.627451, 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+visible = false
 position = Vector2( 0, 1146 )
 shape = SubResource( 5 )
 
@@ -100,7 +498,7 @@ polygon = PoolVector2Array( -1228, 1022, 709, 946, 924, -313, -246, -282, -821, 
 disabled = true
 
 [node name="Walls" type="StaticBody2D" parent="." groups=["stabb-able"]]
-position = Vector2( 0, 40.236 )
+position = Vector2( 569.77, 40.2358 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
 position = Vector2( -2158.53, -2784.32 )
@@ -127,7 +525,7 @@ size_flags_horizontal = 5
 size_flags_vertical = 3
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2( 1382.31, 247.944 )
+position = Vector2( 1952.08, 247.944 )
 mode = 2
 
 [node name="ColorRect" type="ColorRect" parent="RigidBody2D"]
@@ -145,7 +543,7 @@ color = Color( 0.952941, 0, 0, 1 )
 shape = SubResource( 9 )
 
 [node name="RigidBody2D2" type="RigidBody2D" parent="."]
-position = Vector2( 1278.93, 221.786 )
+position = Vector2( 1848.7, 221.786 )
 mass = 2.0
 
 [node name="ColorRect" type="ColorRect" parent="RigidBody2D2"]
@@ -162,123 +560,18 @@ color = Color( 0.952941, 0, 0, 1 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2"]
 shape = SubResource( 10 )
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2( 692, -2 )
-
-[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
-margin_left = -21.0
-margin_top = -62.0
-margin_right = 29.0
-margin_bottom = 377.0
-color = Color( 0.698039, 0.698039, 0.698039, 1 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( -155, 32 )
-shape = SubResource( 12 )
-
-[node name="ColorRect2" type="ColorRect" parent="StaticBody2D"]
-margin_left = -166.0
-margin_top = 23.0
-margin_right = -21.0
-margin_bottom = 43.0
-color = Color( 0.219608, 0.847059, 0.0705882, 1 )
-
-[node name="ColorRect3" type="ColorRect" parent="StaticBody2D"]
-margin_left = -166.0
-margin_top = 23.0
-margin_right = -144.0
-margin_bottom = 43.0
-color = Color( 0, 0, 0, 1 )
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( -12, 2 )
-shape = SubResource( 11 )
-
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( -570, -428 )
+position = Vector2( -0.229797, -428 )
 current = true
 zoom = Vector2( 3, 3 )
 
 [node name="Tool_Spawner" type="Node2D" parent="."]
+position = Vector2( 569.77, 0 )
 script = ExtResource( 7 )
 
-[node name="Ball" type="RigidBody2D" parent="Tool_Spawner" groups=["tool"]]
-position = Vector2( 34, 133 )
-collision_layer = 26
-collision_mask = 25
-mass = 0.00102041
-physics_material_override = SubResource( 13 )
-can_sleep = false
-script = ExtResource( 2 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Tool_Spawner/Ball"]
-shape = SubResource( 14 )
-
-[node name="Polygon2D" type="Polygon2D" parent="Tool_Spawner/Ball"]
-color = Color( 0.301961, 0.8, 0.427451, 0.670588 )
-polygon = PoolVector2Array( -2, -30, 11, -28, 25, -16, 0, 0, 29, 10, 19, 22, 9, 28, -4, 29, -12, 27, -21, 21, -28, 7, -29, -8, -25, -18, -16, -26 )
-
-[node name="PinJoint2D" type="PinJoint2D" parent="Tool_Spawner/Ball"]
-node_a = NodePath("..")
-
-[node name="Shuriken" type="RigidBody2D" parent="Tool_Spawner" groups=["tool"]]
-position = Vector2( -137, 261 )
-collision_layer = 16
-collision_mask = 17
-mass = 0.00102041
-physics_material_override = SubResource( 13 )
-contacts_reported = 2
-contact_monitor = true
-can_sleep = false
-script = ExtResource( 2 )
-sharp = true
-
-[node name="Polygon2D" type="Polygon2D" parent="Tool_Spawner/Shuriken"]
-polygon = PoolVector2Array( -2, -30, 12, -10, 32, 0, 11, 10, 0, 32, -10, 9, -33, 0, -10, -11 )
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Tool_Spawner/Shuriken"]
-polygon = PoolVector2Array( -1, 32, 10, 10, 31, 0, 12, -11, -2, -30, -10, -12, -33, -1, -10, 9 )
-
-[node name="PinJoint2D" type="PinJoint2D" parent="Tool_Spawner/Shuriken"]
-node_a = NodePath("..")
-
-[node name="Spear" type="RigidBody2D" parent="Tool_Spawner" groups=["tool"]]
-physics_interpolation_mode = 2
-position = Vector2( -696, 194 )
-collision_layer = 16
-collision_mask = 17
-mass = 0.00102041
-physics_material_override = SubResource( 13 )
-continuous_cd = 2
-contacts_reported = 4
-contact_monitor = true
-can_sleep = false
-script = ExtResource( 3 )
-sharp = true
-
-[node name="PinJoint2D" type="PinJoint2D" parent="Tool_Spawner/Spear"]
-position = Vector2( 45.8422, 0 )
-node_a = NodePath("..")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Tool_Spawner/Spear"]
-shape = SubResource( 15 )
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Tool_Spawner/Spear"]
-position = Vector2( 91, 0 )
-shape = SubResource( 16 )
-
-[node name="ColorRect" type="ColorRect" parent="Tool_Spawner/Spear"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -91.0
-margin_top = -4.0
-margin_right = 92.0
-margin_bottom = 4.0
-color = Color( 0.227451, 0.156863, 0.0862745, 1 )
-
-[node name="Polygon2D" type="Polygon2D" parent="Tool_Spawner/Spear"]
-position = Vector2( 91, 0 )
-color = Color( 0.631373, 0.631373, 0.631373, 1 )
-polygon = PoolVector2Array( -0.00939941, -10.0412, -0.045105, 9.93271, 24.967, -0.000656128 )
+[connection signal="body_entered" from="Hoop_left/Hoop_Goal" to="Hoop_left" method="_on_Hoop_Goal_body_entered"]
+[connection signal="body_exited" from="Hoop_left/Hoop_Goal" to="Hoop_left" method="_on_Hoop_Goal_body_exited"]
+[connection signal="timeout" from="Hoop_left/Timer" to="Hoop_left" method="_on_Timer_timeout"]
+[connection signal="body_entered" from="Hoop_right/Hoop_Goal" to="Hoop_right" method="_on_Hoop_Goal_body_entered"]
+[connection signal="body_exited" from="Hoop_right/Hoop_Goal" to="Hoop_right" method="_on_Hoop_Goal_body_exited"]
+[connection signal="timeout" from="Hoop_right/Timer" to="Hoop_right" method="_on_Timer_timeout"]

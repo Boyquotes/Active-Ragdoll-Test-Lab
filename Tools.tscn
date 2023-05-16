@@ -19,13 +19,12 @@ points = PoolVector2Array( 0, -10, 0, 10, 25, 0 )
 
 [node name="Tools" type="Node2D"]
 
-[node name="Ball" type="RigidBody2D" parent="." groups=["tool"]]
+[node name="Ball" type="RigidBody2D" parent="." groups=["score-able", "tool"]]
 position = Vector2( 34, 133 )
 collision_layer = 26
 collision_mask = 25
 mass = 0.00102041
 physics_material_override = SubResource( 13 )
-gravity_scale = 0.0
 can_sleep = false
 script = ExtResource( 1 )
 
@@ -67,8 +66,7 @@ collision_layer = 16
 collision_mask = 17
 mass = 0.00102041
 physics_material_override = SubResource( 13 )
-continuous_cd = 2
-contacts_reported = 4
+contacts_reported = 2
 contact_monitor = true
 can_sleep = false
 script = ExtResource( 2 )
