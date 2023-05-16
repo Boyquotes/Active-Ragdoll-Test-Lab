@@ -10,8 +10,6 @@ func _ready():
 	_spawn_new_tool()
 	_spawn_new_tool()
 
-#func _physics_process(delta):
-#	emit_signal("test")
 
 func _spawn_new_tool():
 	var new_tool = tools[randi() % tools.size()].duplicate() # Create a new instance of the tool
@@ -22,9 +20,9 @@ func _spawn_new_tool():
 	var y_height = -1000 # Replace with your actual y height
 	
 	var random_x = rand_range(x_range_start, x_range_end) # Generate a random x position within the range
-	
+	print(random_x)
 	
 	
 	add_child(new_tool) # Add the new tool as a child of the current node
 	
-	new_tool.position = Vector2(random_x, y_height) # Set the position of the new tool
+	new_tool.global_position = Vector2(random_x, y_height) # Set the position of the new tool
