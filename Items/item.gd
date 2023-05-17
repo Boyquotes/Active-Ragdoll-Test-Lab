@@ -9,7 +9,7 @@ var snap = false
 export var sharp = false
 
 signal done
-
+var done = false
 
 var force = 1
 var cooltime_wait = 0
@@ -156,6 +156,8 @@ func impale(body, colliding_point, direction):
 	joint.global_position = colliding_point
 	joint.node_a = self.get_path()
 	joint.node_b = body.get_path()
+	joint.softness = 1
+	
 	
 	var joint2 = PinJoint2D.new()
 	joint2.scale = Vector2(3,3)
@@ -164,6 +166,7 @@ func impale(body, colliding_point, direction):
 	joint2.global_position = colliding_point-direction*40
 	joint2.node_a = self.get_path()
 	joint2.node_b = body.get_path()
+	joint2.softness = 0
 
 
 func _on_body_entered(body):
@@ -198,9 +201,12 @@ func _on_body_entered(body):
 				if self.test_motion(Vector2(0,0), false, 0.01, result):
 					impale(body, result.collision_point, result.collision_normal)
 					emit_signal("done")
+					done = true
+					
 				elif self.test_motion(Vector2(0,0), false, 10, result):
 					impale(body, result.collision_point, result.collision_normal)
 					emit_signal("done")
+					done = true
 					
 				else:
 					var offset = linear_velocity.normalized()
@@ -212,11 +218,13 @@ func _on_body_entered(body):
 							impale(body, result.collision_point, result.collision_normal)
 							emit_signal("done")
 							found = true
+							done = true
 						elif self.test_motion(offset, false, 0.08, result):
 							global_position += offset
 							impale(body, result.collision_point, result.collision_normal)
 							emit_signal("done")
 							found = true
+							done = true
 #
 
 				
@@ -224,10 +232,10 @@ func _on_body_entered(body):
 #					set_collision_mask_bit(1, true)
 					set_collision_layer_bit(1, true)
 				else:
-					if "Body" in body.owner.name:
+					if "Player" in body.owner.name:
 						body.owner.stabbed(self)
 					else:
-						body.owner.stabbed(self)
+						body.stabbed(self)
 						
 					set_collision_mask_bit(1, false)
 					set_collision_layer_bit(1, false)
@@ -238,10 +246,10 @@ func _on_body_entered(body):
 #						set_collision_mask_bit(1, false)
 				
 				
-				if body.get_node("Panel"):
-					body.get_node("Panel").modulate = Color.red
-				elif body.get_node("Polygon2D"):
-					body.get_node("Polygon2D").modulate = Color.red
+#				if body.get_node("Panel"):
+#					body.get_node("Panel").modulate = Color.red
+#				elif body.get_node("Polygon2D"):
+#					body.get_node("Polygon2D").modulate = Color.red
 					
 				
 					
