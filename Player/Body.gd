@@ -57,6 +57,7 @@ var running  = false
 var spine = []
 var legs = []
 
+
 var grabber
 var upper_leg_keyframes = [
 -1.0, 0, 2.4, 0
@@ -99,6 +100,8 @@ func _input(event):
 		
 		for part in spine:
 			part.locked = false
+			part.get_node("PinJoint2D").softness = 1
+		
 		spin_dir = run_dir*-1
 
 	if event.is_action_released(spin) and controllable:
@@ -108,9 +111,14 @@ func _input(event):
 			grabbed_item = null
 			holding_something = false
 			
+		locked = true
+		
 		for part in spine:
 			part.locked = true
-		locked = true
+			part.get_node("PinJoint2D").softness = 0
+		
+		
+
 		
 		spin_multiplier = 1
 	
@@ -125,18 +133,15 @@ func _input(event):
 		run_dir = -1
 	
 	
-	if event.is_action_released(jump) and raycast.is_colliding():
+	if event.is_action_released(jump) and raycast.is_colliding() and controllable:
 		auto_balance_timeout = 0.5
 		var power = (110-float_height)
 		linear_velocity.y = 0
 		
-		for part in spine:
-			part.locked = false
 			
 		self.apply_central_impulse(Vector2(0, jump_power*-1*(3+min(power/20, 5))))
 		float_height = 100
-#		print(-jump_power*(min(power/5, 11)))
-	
+
 func _physics_process(_delta):
 	
 	if Input.is_action_pressed(move_right) and controllable:
@@ -197,7 +202,7 @@ func _physics_process(_delta):
 	pickup_zone.global_rotation = 0
 	
 
-	if raycast.is_colliding() and auto_balance_timeout <= 0:
+	if raycast.is_colliding() and auto_balance_timeout <= 0 and controllable:
 
 
 		var distance_to_ground = raycast.get_collision_point().distance_to(raycast.global_position)
@@ -226,48 +231,44 @@ func _physics_process(_delta):
 	
 	if Input.is_action_pressed(jump) and controllable and raycast.is_colliding():
 		self.mode = RigidBody2D.MODE_RIGID
-
-#		Leg_L_up.locked = false
-#		Leg_R_up.locked = false
-
-#
-#		for part in legs:
-#			part.apply_central_impulse(Vector2.UP * jump_power)
-#		apply_central_impulse(Vector2(0, -jump_power*1))
-		
-		
-#		for part in spine:
-#			part.locked = false
-			
-#		float_height -= 1
 		float_height = max(0, float_height-1)
-#		print(float_height)
 		
 			
 	elif Input.is_action_pressed(crouch) and controllable:
 
-		# Increase gravity and apply a downward force when the down key is held
-#		apply_central_impulse(Vector2.DOWN * jump_power/10)
-
 		for part in legs:
 				part.locked = false
-#		self.gravity_scale = 4
 
-	else:
-		
-		for part in legs:
-				part.locked = true
-		# Reset gravity when the down key is not held
-		self.gravity_scale = 1.0
-#		head.gravity_scale = 1.0
+var stabbed_bodies = []
+var health = 1
 
+func stabbed(body):
+	stabbed_bodies.append(body)
+	if stabbed_bodies.size() >= health:
+		ragdoll()
+		get_node("Respawn_timer").start()
+	
+func _on_Respawn_timer_timeout():
+	for body in stabbed_bodies:
+		body.queue_free()
+		yield(body, "tree_exited")
+	stabbed_bodies.clear()
+	controllable = true
+	
+
+
+func ragdoll():
+	for part in body:
+		locked = false
+	controllable = false
 
 
 
 func _on_Area2D_body_entered(body):
-#	print("ENTERED")
 	if body.available and !holding_something:
 		body.target_node = grabber
 		body.snap = true
 		holding_something = true
+
+
 

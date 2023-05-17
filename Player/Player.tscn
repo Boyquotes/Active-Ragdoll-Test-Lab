@@ -1,15 +1,14 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Player/Leg.gd" type="Script" id=1]
 [ext_resource path="res://Player/Body.gd" type="Script" id=2]
-[ext_resource path="res://Ostritch/Ostritch_Panel_Legs.tres" type="StyleBox" id=3]
-[ext_resource path="res://Ostritch/Ostritch_Panel_Neck.tres" type="StyleBox" id=4]
 [ext_resource path="res://Player/Spine1.gd" type="Script" id=5]
 [ext_resource path="res://Player/Spine5.gd" type="Script" id=6]
 [ext_resource path="res://Player/Spine3.gd" type="Script" id=7]
 [ext_resource path="res://Player/Spine2.gd" type="Script" id=8]
 [ext_resource path="res://Player/Spine4.gd" type="Script" id=9]
 [ext_resource path="res://Player/Spine6.gd" type="Script" id=10]
+[ext_resource path="res://Player/player_1_limb.tres" type="StyleBox" id=11]
 
 [sub_resource type="PhysicsMaterial" id=12]
 friction = 0.0
@@ -82,7 +81,7 @@ margin_left = -8.0
 margin_top = -9.0
 margin_right = 8.0
 margin_bottom = 15.0
-custom_styles/panel = ExtResource( 4 )
+custom_styles/panel = ExtResource( 11 )
 
 [node name="PinJoint2D" type="PinJoint2D" parent="Spine6"]
 position = Vector2( 0, 7 )
@@ -106,7 +105,7 @@ margin_left = -8.0
 margin_top = -9.0
 margin_right = 8.0
 margin_bottom = 9.0
-custom_styles/panel = ExtResource( 4 )
+custom_styles/panel = ExtResource( 11 )
 
 [node name="PinJoint2D" type="PinJoint2D" parent="Spine6/Spine5"]
 position = Vector2( 0, 7 )
@@ -130,7 +129,7 @@ margin_left = -8.0
 margin_top = -9.0
 margin_right = 8.0
 margin_bottom = 9.0
-custom_styles/panel = ExtResource( 4 )
+custom_styles/panel = ExtResource( 11 )
 
 [node name="PinJoint2D" type="PinJoint2D" parent="Spine6/Spine5/Spine4"]
 position = Vector2( 0, 7 )
@@ -154,7 +153,7 @@ margin_left = -8.0
 margin_top = -9.0
 margin_right = 8.0
 margin_bottom = 9.0
-custom_styles/panel = ExtResource( 4 )
+custom_styles/panel = ExtResource( 11 )
 
 [node name="PinJoint2D" type="PinJoint2D" parent="Spine6/Spine5/Spine4/Spine3"]
 position = Vector2( 0, 7 )
@@ -178,7 +177,7 @@ margin_left = -8.0
 margin_top = -9.0
 margin_right = 8.0
 margin_bottom = 9.0
-custom_styles/panel = ExtResource( 4 )
+custom_styles/panel = ExtResource( 11 )
 
 [node name="PinJoint2D" type="PinJoint2D" parent="Spine6/Spine5/Spine4/Spine3/Spine2"]
 position = Vector2( 0, 7 )
@@ -203,7 +202,7 @@ margin_left = -8.0
 margin_top = -9.0
 margin_right = 8.0
 margin_bottom = 9.0
-custom_styles/panel = ExtResource( 4 )
+custom_styles/panel = ExtResource( 11 )
 
 [node name="PinJoint2D" type="PinJoint2D" parent="Spine6/Spine5/Spine4/Spine3/Spine2/Spine1"]
 position = Vector2( 0, 7 )
@@ -226,7 +225,7 @@ margin_left = -7.0
 margin_top = -32.0
 margin_right = 7.0
 margin_bottom = 32.0
-custom_styles/panel = ExtResource( 3 )
+custom_styles/panel = ExtResource( 11 )
 
 [node name="PinJoint2D4" type="PinJoint2D" parent="Leg_L_up"]
 position = Vector2( 0.0984063, 25.8425 )
@@ -254,7 +253,7 @@ margin_left = -7.0
 margin_top = -32.0
 margin_right = 7.0
 margin_bottom = 32.0
-custom_styles/panel = ExtResource( 3 )
+custom_styles/panel = ExtResource( 11 )
 
 [node name="Leg_R_up" type="RigidBody2D" parent="." groups=["stabb-able"]]
 position = Vector2( 4, 28 )
@@ -271,7 +270,7 @@ margin_left = -7.0
 margin_top = -32.0
 margin_right = 7.0
 margin_bottom = 32.0
-custom_styles/panel = ExtResource( 3 )
+custom_styles/panel = ExtResource( 11 )
 
 [node name="PinJoint2D5" type="PinJoint2D" parent="Leg_R_up"]
 position = Vector2( 0.688862, 25.0704 )
@@ -299,9 +298,10 @@ margin_left = -7.0
 margin_top = -32.0
 margin_right = 7.0
 margin_bottom = 32.0
-custom_styles/panel = ExtResource( 3 )
+custom_styles/panel = ExtResource( 11 )
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color( 0.184314, 0.792157, 0.101961, 1 )
 polygon = PoolVector2Array( 3, -26, 11, -26, 18, -25, 24, -23, 30, -18, 34, -12, 36, -6, 37, 0, 36, 7, 34, 13, 30, 18, 25, 22, 18, 25, 11, 26, -1, 26, -11, 26, -17, 25, -24, 23, -29, 19, -34, 13, -36, 6, -37, 0, -36, -7, -34, -13, -30, -18, -24, -23, -18, -25, -11, -26 )
 
 [node name="Pickup_range" type="Area2D" parent="."]
@@ -313,4 +313,10 @@ visible = false
 position = Vector2( 0, 51.5 )
 shape = SubResource( 13 )
 
+[node name="Respawn_timer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 5.0
+one_shot = true
+
 [connection signal="body_entered" from="Pickup_range" to="." method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="Respawn_timer" to="." method="_on_Respawn_timer_timeout"]

@@ -152,7 +152,7 @@ func impale(body, colliding_point, direction):
 	var joint = PinJoint2D.new()
 	joint.scale = Vector2(3,3)
 	joint.disable_collision = true
-	body.add_child(joint)
+	add_child(joint)
 	joint.global_position = colliding_point
 	joint.node_a = self.get_path()
 	joint.node_b = body.get_path()
@@ -160,7 +160,7 @@ func impale(body, colliding_point, direction):
 	var joint2 = PinJoint2D.new()
 	joint2.scale = Vector2(3,3)
 	joint2.disable_collision = true
-	body.add_child(joint2)
+	add_child(joint2)
 	joint2.global_position = colliding_point-direction*40
 	joint2.node_a = self.get_path()
 	joint2.node_b = body.get_path()
@@ -190,24 +190,45 @@ func _on_body_entered(body):
 				
 #				linear_velocity.x = linear_velocity.x/2
 
-				var offset = linear_velocity.normalized() * 50
+
 #				global_position -= offset
-
-
-				if self.test_motion(Vector2(0,0), false, 0.08, result):
-					pass					
-				elif self.test_motion(-offset, false, 0.08, result):
-					global_position -= offset
-				elif self.test_motion(offset, false, 0.08, result):
-					global_position += offset
+				
+				var dist = 0
 	
-				impale(body, result.collision_point, result.collision_normal)
-				emit_signal("done")
+				if self.test_motion(Vector2(0,0), false, 0.01, result):
+					impale(body, result.collision_point, result.collision_normal)
+					emit_signal("done")
+				elif self.test_motion(Vector2(0,0), false, 10, result):
+					impale(body, result.collision_point, result.collision_normal)
+					emit_signal("done")
+					
+				else:
+					var offset = linear_velocity.normalized()
+					var found = false
+					while offset.length() <= 100 and found == false:
+						offset *= 1.1
+						if self.test_motion(-offset, false, 0.08, result):
+							global_position -= offset
+							impale(body, result.collision_point, result.collision_normal)
+							emit_signal("done")
+							found = true
+						elif self.test_motion(offset, false, 0.08, result):
+							global_position += offset
+							impale(body, result.collision_point, result.collision_normal)
+							emit_signal("done")
+							found = true
+#
+
 				
 				if (body is StaticBody2D):
 #					set_collision_mask_bit(1, true)
 					set_collision_layer_bit(1, true)
 				else:
+					if "Body" in body.owner.name:
+						body.owner.stabbed(self)
+					else:
+						body.owner.stabbed(self)
+						
 					set_collision_mask_bit(1, false)
 					set_collision_layer_bit(1, false)
 					

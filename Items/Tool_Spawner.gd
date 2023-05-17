@@ -20,7 +20,7 @@ func _spawn_new_tool():
 	var y_height = -1000 # Replace with your actual y height
 	
 	var random_x = rand_range(x_range_start, x_range_end) # Generate a random x position within the range
-	print(random_x)
+#	print(random_x)
 	
 	new_tool.owner = self
 	add_child(new_tool) # Add the new tool as a child of the current node

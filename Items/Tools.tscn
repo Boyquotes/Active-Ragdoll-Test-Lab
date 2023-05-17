@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Items/item.gd" type="Script" id=1]
-[ext_resource path="res://Player/Spear.gd" type="Script" id=2]
+[ext_resource path="res://Items/Spear.gd" type="Script" id=2]
 
 [sub_resource type="PhysicsMaterial" id=13]
 friction = 0.0
@@ -70,7 +70,6 @@ collision_layer = 16
 collision_mask = 17
 mass = 0.00102041
 physics_material_override = SubResource( 13 )
-continuous_cd = 2
 contacts_reported = 2
 contact_monitor = true
 can_sleep = false
@@ -103,9 +102,3 @@ color = Color( 0.227451, 0.156863, 0.0862745, 1 )
 position = Vector2( 91, 0 )
 color = Color( 0.631373, 0.631373, 0.631373, 1 )
 polygon = PoolVector2Array( -0.00939941, -10.0412, -0.045105, 9.93271, 24.967, -0.000656128 )
-
-[node name="RayCast2D" type="RayCast2D" parent="Spear"]
-position = Vector2( 112.133, -0.0119476 )
-enabled = true
-cast_to = Vector2( 50, 0 )
-collision_mask = 3
