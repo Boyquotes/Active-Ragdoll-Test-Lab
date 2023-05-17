@@ -1,5 +1,0 @@
-extends "res://Spine.gd"
-
-
-
-

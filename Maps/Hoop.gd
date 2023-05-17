@@ -34,10 +34,11 @@ func _on_Timer_timeout():
 		left_score_text = "0 "
 	else:
 		left_score_text = str(left_score)
+
 	if right_score == 0:
 		right_score_text = " 0"
 	else:
-		right_score_text = str(left_score)
+		right_score_text = str(right_score)
 	
 	score.text =  left_score_text + " -" + right_score_text
 

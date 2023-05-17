@@ -18,7 +18,7 @@ onready var color_object = get_node("Panel")
 ##	state.set_transform(xform)
 
 
-func _process(delta):
+func _physics_process(delta):
 	var global = true
 	
 	var current_angle

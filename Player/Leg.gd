@@ -7,7 +7,7 @@ var locked = true
 func _ready(): 
 	pass 
 
-func _process(delta):
+func _physics_process(delta):
 	#same thing here as well
 	
 	var current_angle = get_global_transform().get_rotation()

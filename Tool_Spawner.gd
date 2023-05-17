@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var tools = load("res://Tools.tscn").instance().get_children()
+onready var tools = load("res://Items/Tools.tscn").instance().get_children()
 
 
 func _ready():
@@ -22,7 +22,7 @@ func _spawn_new_tool():
 	var random_x = rand_range(x_range_start, x_range_end) # Generate a random x position within the range
 	print(random_x)
 	
-	
+	new_tool.owner = self
 	add_child(new_tool) # Add the new tool as a child of the current node
 	
 	new_tool.global_position = Vector2(random_x, y_height) # Set the position of the new tool

@@ -1,4 +1,4 @@
-extends "res://Body.gd"
+extends "res://Player/Body.gd"
 
 func _ready():
 	jump = "arrow_up"
@@ -6,5 +6,3 @@ func _ready():
 	move_right = "arrow_right"
 	move_left = "arrow_left"
 	spin = "arrow_spin"
-	
-	chest_polygon.color = Color.red

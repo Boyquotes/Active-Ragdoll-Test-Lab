@@ -95,7 +95,7 @@ func _input(event):
 #		setScale(-1, 2)
 
 
-func _process(_delta):
+func _physics_process(_delta):
 
 	var float_height = 111 # The height at which the character should float
 

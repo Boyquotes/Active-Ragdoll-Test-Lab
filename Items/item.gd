@@ -114,6 +114,10 @@ func _physics_process(delta):
 			breakpoint
 			linear_velocity = Vector2.ZERO
 
+
+
+
+
 func grab():
 	locked = true
 	friction = 1
@@ -166,7 +170,11 @@ func _on_body_entered(body):
 	if sharp and !available and !locked and !snap:
 		var me = target_node.owner
 		var hitted = body.owner
-		if body.is_in_group("stabb-able") and (target_node.owner != body.owner):
+		var same = false
+		if hitted == me:
+			same = true
+#		var same = (hitted==me)
+		if body.is_in_group("stabb-able") and (target_node.owner != body.owner) and (target_node.owner != body):
 			if !impaled:
 				var result = Physics2DTestMotionResult.new()
 
@@ -176,16 +184,28 @@ func _on_body_entered(body):
 					set_collision_mask_bit(0, false)
 				else:
 					set_collision_mask_bit(0, true)
+					
 #					set_collision_layer_bit(0, true)
 						
-						
-				if self.test_motion(Vector2(0,0), false, 0.08, result):
-					impale(body, result.collision_point, result.collision_normal)
-					emit_signal("done")
 				
+#				linear_velocity.x = linear_velocity.x/2
+
+				var offset = linear_velocity.normalized() * 50
+#				global_position -= offset
+
+
+				if self.test_motion(Vector2(0,0), false, 0.08, result):
+					pass					
+				elif self.test_motion(-offset, false, 0.08, result):
+					global_position -= offset
+				elif self.test_motion(offset, false, 0.08, result):
+					global_position += offset
+	
+				impale(body, result.collision_point, result.collision_normal)
+				emit_signal("done")
 				
 				if (body is StaticBody2D):
-					set_collision_mask_bit(1, true)
+#					set_collision_mask_bit(1, true)
 					set_collision_layer_bit(1, true)
 				else:
 					set_collision_mask_bit(1, false)
@@ -197,14 +217,12 @@ func _on_body_entered(body):
 #						set_collision_mask_bit(1, false)
 				
 				
-				
-				
-
-				
 				if body.get_node("Panel"):
 					body.get_node("Panel").modulate = Color.red
 				elif body.get_node("Polygon2D"):
 					body.get_node("Polygon2D").modulate = Color.red
+					
+				
 					
 				
 						

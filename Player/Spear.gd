@@ -1,4 +1,4 @@
-extends "res://item.gd"
+extends "res://Items/item.gd"
 
 
 func release():
@@ -10,7 +10,6 @@ func release():
 	mass = 1
 	weight = 9.8
 	apply_central_impulse(Vector2(linear_velocity.x/275,linear_velocity.x/1000))
-
 
 #
 #
