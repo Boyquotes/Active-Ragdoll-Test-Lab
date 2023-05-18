@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Player/Leg.gd" type="Script" id=1]
 [ext_resource path="res://Player/Body.gd" type="Script" id=2]
@@ -37,6 +37,14 @@ rough = true
 bounce = 10.0
 absorbent = true
 
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0.184314, 0.792157, 0.101961, 1 )
+corner_radius_top_left = 27
+corner_radius_top_right = 27
+corner_radius_bottom_right = 27
+corner_radius_bottom_left = 27
+corner_detail = 20
+
 [sub_resource type="RectangleShape2D" id=13]
 extents = Vector2( 63, 77.5 )
 
@@ -58,7 +66,7 @@ rotation = 1.5708
 shape = SubResource( 11 )
 
 [node name="Spine6" type="RigidBody2D" parent="." groups=["stabb-able"]]
-position = Vector2( 32, -14 )
+position = Vector2( 32, -7 )
 collision_layer = 6
 collision_mask = 5
 mass = 0.102041
@@ -292,9 +300,12 @@ margin_right = 7.0
 margin_bottom = 32.0
 custom_styles/panel = ExtResource( 11 )
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color( 0.184314, 0.792157, 0.101961, 1 )
-polygon = PoolVector2Array( 3, -26, 11, -26, 18, -25, 24, -23, 30, -18, 34, -12, 36, -6, 37, 0, 36, 7, 34, 13, 30, 18, 25, 22, 18, 25, 11, 26, -1, 26, -11, 26, -17, 25, -24, 23, -29, 19, -34, 13, -36, 6, -37, 0, -36, -7, -34, -13, -30, -18, -24, -23, -18, -25, -11, -26 )
+[node name="Panel" type="Panel" parent="."]
+margin_left = -37.0
+margin_top = -26.0
+margin_right = 37.0
+margin_bottom = 26.0
+custom_styles/panel = SubResource( 15 )
 
 [node name="Pickup_range" type="Area2D" parent="."]
 collision_layer = 0

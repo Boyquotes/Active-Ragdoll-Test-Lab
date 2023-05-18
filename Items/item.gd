@@ -18,10 +18,8 @@ var cooltime = 1.3
 
 var impaled = false
 
-var speed = 500  # Speed of movement
-onready var target_node: Node2D  # The node we want to follow
-
-# Relative position to the target_node
+var speed = 500 
+onready var target_node: Node2D 
 
 
 onready var pin = get_node("PinJoint2D")
@@ -44,8 +42,12 @@ func _physics_process(delta):
 	pin.position = Vector2(0,0)
 	
 #	if target_node:
-#		scale.x = target_node.owner.run_dir
-	
+##		scale.x = target_node.owner.spin_dir
+#		print(target_node.owner.spin_dir)
+#		if target_node.owner.spin_dir != 1:
+#			new_desired_angle = deg2rad(180)
+#		else:
+#			new_desired_angle = deg2rad(0)
 	
 	if cooldown == true and !impaled:
 		cooltime_wait += delta
@@ -65,12 +67,12 @@ func _physics_process(delta):
 
 
 	if is_stationary() and pin.get_node_b()=="" and !cooldown and !impaled:
-			available = true
-			set_collision_mask_bit(1, false)
-			mass = 0.01
-			weight = 0.01
-			
-			visual.color = Color.green
+		available = true
+		set_collision_mask_bit(1, false)
+		mass = 0.01
+		weight = 0.01
+		
+		visual.color = Color.green
 	else:
 		visual.color = Color.red
 			

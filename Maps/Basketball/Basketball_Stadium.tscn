@@ -1,9 +1,8 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Maps/Basketball/Hoop.gd" type="Script" id=1]
 [ext_resource path="res://Maps/Basketball/Score.gd" type="Script" id=2]
 [ext_resource path="res://fonts/kirifont/Kirifont.tres" type="DynamicFont" id=3]
-[ext_resource path="res://Palette/palette.png" type="Texture" id=4]
 [ext_resource path="res://Maps/Basketball/Net_Panel.tres" type="StyleBox" id=5]
 
 [sub_resource type="RectangleShape2D" id=22]
@@ -757,10 +756,6 @@ text = "0 -0"
 align = 1
 valign = 1
 script = ExtResource( 2 )
-
-[node name="Palette" type="Sprite" parent="."]
-position = Vector2( -2500, -698 )
-texture = ExtResource( 4 )
 
 [connection signal="body_entered" from="Hoop_left/Hoop_Goal" to="Hoop_left" method="_on_Hoop_Goal_body_entered"]
 [connection signal="body_exited" from="Hoop_left/Hoop_Goal" to="Hoop_left" method="_on_Hoop_Goal_body_exited"]

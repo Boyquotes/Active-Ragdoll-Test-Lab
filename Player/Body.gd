@@ -4,6 +4,8 @@ var speed = 400
 
 var jump_power=1000
 
+
+var bad_spines = 0
 var spin_power = 50
 #again the varaible to store desired angle
 var new_desired_angle = 0
@@ -67,6 +69,7 @@ var lower_leg_keyframes = [
 2.0, 1.0, 2.0, -1
 ]
 
+var arm_collision_recovering = false
 
 var jump = "arrow_up"
 var crouch = "arrow_down"
@@ -74,15 +77,37 @@ var move_right = "arrow_right"
 var move_left = "arrow_left"
 var spin = "arrow_spin"
 
+var proximity_threshold = deg2rad(45)
+export var flip = false
 
+func flip():
+	
+	new_desired_angle += deg2rad(180)
+	
+	for part in spine:
+		part.new_desired_angle *= -1
+	
+	arm_collision_recovering = true
+	
+#		if abs(part.current_angle - part.new_desired_angle) > proximity_threshold:
+#			part.set_collision_mask_bit(2, false)
+#			part.set_collision_layer_bit(1, false)
+#			part.set_collision_layer_bit(2, false) 
+#		else:
+#			part.set_collision_mask_bit(2, true)
+#			part.set_collision_layer_bit(1, true)
+#			part.set_collision_layer_bit(2, true) 
 
 func _ready():
+	
 	grabber = spine1
 	stride = 0.0
 	body = [spine1, spine2, spine3, spine4, spine5, spine6, self, Leg_L_up, Leg_L_down, Leg_R_up, Leg_R_down]
 	spine = [spine1, spine2, spine3, spine4, spine5, spine6]
 	legs = [Leg_L_up, Leg_L_down, Leg_R_up, Leg_R_down]
 
+	if flip:
+		flip()	
 
 func interpolate_keyframes(keyframes, progress):
 	var index = int(progress * len(keyframes))
@@ -101,8 +126,17 @@ func _input(event):
 		for part in spine:
 			part.locked = false
 			part.get_node("PinJoint2D").softness = 1
-		
+			part.set_collision_mask_bit(2, true)
+			part.set_collision_layer_bit(1, true)
+			part.set_collision_layer_bit(2, true) 
+
 		spin_dir = run_dir*-1
+		
+#		if grabbed_item:
+#			grabbed_item.set_scale(Vector2(10,10))
+#			print(grabbed_item)
+#			scale.x = 2
+		
 
 	if event.is_action_released(spin) and controllable:
 		self.mode = RigidBody2D.MODE_CHARACTER
@@ -116,12 +150,20 @@ func _input(event):
 		for part in spine:
 			part.locked = true
 			part.get_node("PinJoint2D").softness = 0
-		
-		
+			
 
+			part.set_collision_mask_bit(2, false)
+			part.set_collision_layer_bit(1, false)
+			part.set_collision_layer_bit(2, false) 
+			
+			bad_spines += 1
+			
+#			part.color_object.modulate = Color.red
+			
+		arm_collision_recovering = true
 		
 		spin_multiplier = 1
-	
+		
 	
 	if event.is_action_pressed(move_left):
 		variant = 1
@@ -138,12 +180,21 @@ func _input(event):
 		var power = (110-float_height)
 		linear_velocity.y = 0
 		
+
 			
 		self.apply_central_impulse(Vector2(0, jump_power*-1*(3+min(power/20, 5))))
 		float_height = 100
-
-func _physics_process(_delta):
+		
+	elif event.is_action_pressed(crouch) and controllable:
+		for part in legs:
+				part.locked = false
+				
+	if event.is_action_released(crouch) and controllable:
+		for part in legs:
+				part.locked = true
+				
 	
+func _physics_process(_delta):
 	if Input.is_action_pressed(move_right) and controllable:
 		variant += 0.001
 		velocity.x = speed*variant
@@ -159,6 +210,7 @@ func _physics_process(_delta):
 	if Input.is_action_pressed(spin) and controllable:
 		spin_multiplier += 0.003
 		angular_velocity = 10*spin_dir*min(spin_multiplier, 1.33)  # Set a constant angular velocity
+		
 
 
 	if velocity.length() > 10:
@@ -233,11 +285,18 @@ func _physics_process(_delta):
 		self.mode = RigidBody2D.MODE_RIGID
 		float_height = max(0, float_height-1)
 		
-			
-	elif Input.is_action_pressed(crouch) and controllable:
 
-		for part in legs:
-				part.locked = false
+	if arm_collision_recovering:
+		for part in spine:
+			if abs(part.current_angle - part.new_desired_angle) < proximity_threshold:
+				part.set_collision_mask_bit(2, true)
+				part.set_collision_layer_bit(1, true)
+				part.set_collision_layer_bit(2, true) 
+				bad_spines -= 1
+#				part.color_object.modulate = Color.green
+				
+		if bad_spines <= 0:
+			arm_collision_recovering = false
 
 var stabbed_bodies = []
 var health = 1
@@ -245,6 +304,7 @@ var health = 1
 func stabbed(body):
 	stabbed_bodies.append(body)
 	if stabbed_bodies.size() >= health:
+		body.weight = 500
 		ragdoll()
 		get_node("Respawn_timer").start()
 	
@@ -253,14 +313,24 @@ func _on_Respawn_timer_timeout():
 		body.queue_free()
 		yield(body, "tree_exited")
 	stabbed_bodies.clear()
+	
+	for part in body:
+		locked = true
+	
 	controllable = true
+	holding_something = false
+	
 	
 
 
 func ragdoll():
 	for part in body:
 		locked = false
-	controllable = false
+
+	if grabbed_item:
+		grabbed_item.release()
+		grabbed_item = null
+		holding_something = true
 
 
 

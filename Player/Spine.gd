@@ -6,22 +6,13 @@ var max_angle = 120 # Maximum angle in radians. You can change this variable.
 var locked = true
 
 onready var color_object = get_node("Panel")
-
-#func _integrate_forces(state):
-#	max_angle = 0 # Maximum angle in radians. You can change this variable.
-#	var adjusted = calculate_overshot(rotation_degrees)
-##	print(adjusted)
-##	var xform = state.get_transform().rotated(adjusted)
-##	state.get_contact_collider_velocity_at_position(
-#	angular_velocity -= adjusted
-#
-##	state.set_transform(xform)
+var current_angle = 0
 
 
 func _physics_process(delta):
 	var global = true
 	
-	var current_angle
+	
 	if global:
 		current_angle = get_global_transform().get_rotation()
 	else:

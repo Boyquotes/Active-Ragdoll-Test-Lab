@@ -32,7 +32,7 @@ adjustment_enabled = true
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( -0.229797, -428 )
 current = true
-zoom = Vector2( 3, 3 )
+zoom = Vector2( 1.7, 1.7 )
 
 [node name="Stadium" parent="." instance=ExtResource( 2 )]
 
@@ -43,10 +43,10 @@ script = ExtResource( 4 )
 [node name="Player1" parent="." instance=ExtResource( 1 )]
 position = Vector2( -844, 190 )
 script = ExtResource( 6 )
+flip = true
 
 [node name="Player2" parent="." instance=ExtResource( 1 )]
 position = Vector2( 790, 207 )
-scale = Vector2( -1, 1 )
 script = ExtResource( 5 )
 
 [node name="Mouse_controlled_box" type="KinematicBody2D" parent="."]

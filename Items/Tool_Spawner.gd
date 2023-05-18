@@ -22,8 +22,9 @@ func _spawn_new_tool():
 	
 	var random_x = rand_range(x_range_start, x_range_end) 
 
-	new_tool.owner = self
+	
 	add_child(new_tool)
+#	new_tool.owner = self
 	
 	new_tool.global_position = Vector2(random_x, y_height) 
 	
